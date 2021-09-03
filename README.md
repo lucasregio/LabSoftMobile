@@ -40,7 +40,7 @@ Instalar [Expo](https://expo.dev/) globalmente
 npm install -g expo-cli
 ```
 
-Veja mais sobre a documentação da instalação do Expo veja [aqui](https://docs.expo.dev/workflow/expo-cli/).
+Veja mais sobre a documentação da instalação do Expo [aqui](https://docs.expo.dev/workflow/expo-cli/).
 
 ### Como usar
 
