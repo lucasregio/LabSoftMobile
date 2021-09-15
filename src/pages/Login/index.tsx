@@ -1,13 +1,22 @@
-import { useNavigation } from '@react-navigation/core';
+
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View, Text } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { RootStackParamList } from '../../routes';
 
 import { styles } from './styles';
 
+type loginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
 const Login: React.FC = () => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<loginScreenProp>();
+
+    function handleNavigateToForgotPassowrd() {
+        navigation.navigate('ForgotPassword');
+    }
 
     return (
         <View style={styles.container}>
@@ -31,7 +40,7 @@ const Login: React.FC = () => {
             </View>
 
             <View style={styles.forgotPasswordContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleNavigateToForgotPassowrd}>
                     <Text style={styles.linkText}>Esqueci minha senha</Text>
                 </TouchableOpacity>
             </View>
