@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: `${colors.background_white_blue}`,
+        backgroundColor: `${colors.offwhiteblue}`,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
