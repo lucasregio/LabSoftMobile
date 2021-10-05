@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: `${colors.background_white_blue}`,
+        backgroundColor: `${colors.offwhiteblue}`,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -79,5 +79,12 @@ export const styles = StyleSheet.create({
         color: `${colors.purple}`,
         fontFamily: 'Nunito_400Regular',
         textDecorationLine: 'underline',
+    },
+
+    labelError: {
+        color: `${colors.pink}`,
+        fontFamily: 'Nunito_400Regular',
+        fontWeight: 'bold',
+        paddingBottom: 4
     }
 });
