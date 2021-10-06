@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
         color: `${colors.pink}`,
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
-        paddingBottom: 4
+        paddingBottom: 4,
+        paddingTop: 5
     }
 });
