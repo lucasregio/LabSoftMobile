@@ -1,19 +1,25 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { View, ActivityIndicator } from "react-native";
+import colors from '../styles/colors';
 
-import DrawerNavigator from '../routes/Drawer';
+import { useAuth } from '../contexts/auth';
 
-export type RootStackParamList = {
-    Login: undefined;
-    ForgotPassword: undefined;
-};
+import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
 
 const Routes = () => {
-    return (
-        <NavigationContainer>
-            <DrawerNavigator/>
-        </NavigationContainer>
-    );
+
+    const { signed, loading } = useAuth();
+
+    if (loading) {
+        return (
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator size='large' color={colors.primary}/>
+            </View>
+        );
+    }
+    
+    return signed ? <AppRoutes/> : <AuthRoutes/>;
 }
 
 export default Routes;

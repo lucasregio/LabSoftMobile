@@ -4,17 +4,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Feed from '../../pages/Feed';
-import Favorites from '../../pages/Favorites';
-import Calendar from '../../pages/Calendar';
-import Scoreboard from '../../pages/Scoreboard';
-import Athletic from '../../pages/Athletic';
+import Feed from '../pages/Feed';
+import Favorites from '../pages/Favorites';
+import Calendar from '../pages/Calendar';
+import Scoreboard from '../pages/Scoreboard';
+import Athletic from '../pages/Athletic';
+import colors from '../styles/colors';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator  screenOptions={{tabBarHideOnKeyboard: true}}>
             <Tab.Screen options={{
                 tabBarIcon: ({color}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -26,8 +27,8 @@ const TabNavigator = () => {
                     </View>
                 ),
                 title: 'Home', 
-                tabBarActiveTintColor: '#E6007E',
-                tabBarInactiveTintColor: '#000',
+                tabBarActiveTintColor: colors.pink,
+                tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
@@ -44,8 +45,8 @@ const TabNavigator = () => {
                     </View>
                 ),
                 title: 'Favoritos', 
-                tabBarActiveTintColor: '#E6007E',
-                tabBarInactiveTintColor: '#000',
+                tabBarActiveTintColor: colors.pink,
+                tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
@@ -62,8 +63,8 @@ const TabNavigator = () => {
                     </View>
                 ),
                 title: 'Calendário', 
-                tabBarActiveTintColor: '#E6007E',
-                tabBarInactiveTintColor: '#000',
+                tabBarActiveTintColor: colors.pink,
+                tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
@@ -79,9 +80,9 @@ const TabNavigator = () => {
                         />
                     </View>
                 ),
-                title: 'Placar', 
-                tabBarActiveTintColor: '#E6007E',
-                tabBarInactiveTintColor: '#000',
+                title: 'Modalidade', 
+                tabBarActiveTintColor: colors.pink,
+                tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
@@ -99,8 +100,8 @@ const TabNavigator = () => {
                     </View>
                 ),
                 title: 'Atlética', 
-                tabBarActiveTintColor: '#E6007E',
-                tabBarInactiveTintColor: '#000',
+                tabBarActiveTintColor: colors.pink,
+                tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
