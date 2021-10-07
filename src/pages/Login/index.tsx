@@ -24,6 +24,11 @@ const Login: React.FC = () => {
         navigation.navigate('ForgotPassword');
     }
 
+    function handleNavigateToRegister() {
+        setSignInError(false);
+        navigation.navigate('Register');
+    }
+
     async function handleSignIn() {
         setSignInError(false);
         Keyboard.dismiss();
@@ -81,7 +86,7 @@ const Login: React.FC = () => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigateToRegister}>
                 <Text style={styles.linkText}>Criar conta</Text>
             </TouchableOpacity>
         </View>

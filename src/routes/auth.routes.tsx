@@ -3,6 +3,7 @@ import { createStackNavigator, StackNavigationOptions } from '@react-navigation/
 import Login from '../pages/Login';
 import ForgotPassword from '../pages/ForgotPassword';
 import colors from '../styles/colors';
+import Register from '../pages/Register';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 
@@ -24,6 +25,7 @@ const AuthRoutes = () => {
         <AuthStack.Navigator initialRouteName="Login" screenOptions={stackOptions}>
             <AuthStack.Screen name="Login" component={Login}/>
             <AuthStack.Screen name="ForgotPassword" component={ForgotPassword}/>
+            <AuthStack.Screen name="Register" component={Register}/>
             {/*<AuthStack.Screen name="" component={}/>*/}
         </AuthStack.Navigator>
     );
