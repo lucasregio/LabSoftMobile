@@ -6,8 +6,18 @@ export const styles = StyleSheet.create({
     container: {
         backgroundColor: `${colors.offwhiteblue}`,
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingHorizontal: '10%',
-        paddingTop: Constants.statusBarHeight + 20
+    
+    },
+
+    teste:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+        
     },
 
     header: {
@@ -19,20 +29,29 @@ export const styles = StyleSheet.create({
 
     body: {
         flex: 3,
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 10,
+        flexWrap:'wrap',
     },
 
+    title: {
+        color: `${colors.purple}`,
+        fontFamily: 'FredokaOne_400Regular',
+        fontSize: 64
+    },
+
+    
+
     text: {
-        color: colors.primary,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontFamily: 'Nunito_400Regular',
-        fontSize: 16,
+        color: `${colors.purple}`,
+        fontFamily: 'FredokaOne_400Regular',
+        alignSelf: 'center',
+        fontSize: 25,
     },
 
     label: {
-        color: colors.primary,
+        color: `${colors.purple}`,
         fontFamily: 'Nunito_400Regular',
         fontSize: 14,
         fontWeight: 'bold',
@@ -43,23 +62,14 @@ export const styles = StyleSheet.create({
         alignSelf: 'stretch'
     },
 
-    input: {
-        color: colors.primary,
-        borderColor: colors.primary,
-        borderRadius: 10,
-        fontFamily: 'Nunito_400Regular',
-        borderWidth: 1,
-        padding: 10,
-        backgroundColor: '#fff',
-        fontSize: 15
-    },
+    
 
     buttonContainer: {
         padding: 20
     },
 
     button: {
-        backgroundColor: colors.primary,
+        backgroundColor: `${colors.purple}`,
         height: 45,
         width: 193,
         flexDirection: 'row',
@@ -67,6 +77,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden',
         borderRadius: 32,
+
     },
 
     buttonText: {
@@ -77,21 +88,5 @@ export const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
-    },
-
-    labelInputError: {
-        color: colors.pink,
-        fontFamily: 'Nunito_400Regular',
-        fontWeight: 'bold',
-        paddingBottom: 4,
-        paddingTop: 5
-    },
-
-    inputError: {
-        borderColor: colors.pink
-    },
-
-    labelError: {
-        color: colors.pink
     },
 });

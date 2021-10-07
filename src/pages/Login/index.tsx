@@ -1,21 +1,51 @@
-
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../../routes';
+import { useAuth } from '../../contexts/auth';
+import { AuthStackParamList } from '../../routes/auth.routes';
 
 import { styles } from './styles';
 
-type loginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type LoginScreenProp = StackNavigationProp<AuthStackParamList, 'Login'>;
 
 const Login: React.FC = () => {
+    let [email, setEmail] = React.useState('');
+    let [password, setPassword] = React.useState('');
+    let [signInError, setSignInError] = React.useState(false);
+    let [errorMessage, setErrorMessage] = React.useState('');
+    const { signIn } = useAuth();
 
-    const navigation = useNavigation<loginScreenProp>();
+    const navigation = useNavigation<LoginScreenProp>();
 
     function handleNavigateToForgotPassowrd() {
+        setSignInError(false);
         navigation.navigate('ForgotPassword');
+    }
+
+    function handleNavigateToRegister() {
+        setSignInError(false);
+        navigation.navigate('Register');
+    }
+
+    async function handleSignIn() {
+        setSignInError(false);
+        Keyboard.dismiss();
+
+        if (email === '' || password === '') {
+            setSignInError(true);
+            setErrorMessage('* Campo(s) obrigatório(s)');
+            return;
+        }
+
+        try {
+            await signIn(email, password);
+        }
+        catch (e) {
+            setSignInError(true);
+            setErrorMessage('E-mail e/ou senha inválidos');
+        }
     }
 
     return (
@@ -24,19 +54,24 @@ const Login: React.FC = () => {
             <Text style={styles.title}>DCE</Text>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Login</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.label, signInError ? styles.labelError : {}]}>Login</Text>
+                <TextInput style={[styles.input, signInError ? styles.inputError : {}]}
                     placeholder="aluno@uvvnet.com.br"
+                    value={email}
+                    onChange={e => setEmail(e.nativeEvent.text)}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Senha</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.label, signInError ? styles.labelError : {}]}>Senha</Text>
+                <TextInput style={[styles.input, signInError ? styles.inputError : {}]}
                     secureTextEntry={true}
                     placeholderTextColor='#CCCCCC'
                     placeholder="••••••••••••••••••"
+                    value={password}
+                    onChange={e => setPassword(e.nativeEvent.text)}
                 />
+                {signInError && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
             </View>
 
             <View style={styles.forgotPasswordContainer}>
@@ -47,11 +82,11 @@ const Login: React.FC = () => {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText} onPress={()=>{console.log('Login')}}>Entrar</Text>
+                    <Text style={styles.buttonText} onPress={handleSignIn}>Entrar</Text>
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigateToRegister}>
                 <Text style={styles.linkText}>Criar conta</Text>
             </TouchableOpacity>
         </View>
