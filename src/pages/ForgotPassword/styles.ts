@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     },
 
     text: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         textAlign: 'center',
         fontWeight: 'bold',
         fontFamily: 'Nunito_400Regular',
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     },
 
     label: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         fontFamily: 'Nunito_400Regular',
         fontSize: 14,
         fontWeight: 'bold',
@@ -44,8 +44,8 @@ export const styles = StyleSheet.create({
     },
 
     input: {
-        color: `${colors.primary}`,
-        borderColor: `${colors.primary}`,
+        color: colors.primary,
+        borderColor: colors.primary,
         borderRadius: 10,
         fontFamily: 'Nunito_400Regular',
         borderWidth: 1,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: `${colors.primary}`,
+        backgroundColor: colors.primary,
         height: 45,
         width: 193,
         flexDirection: 'row',
@@ -67,7 +67,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden',
         borderRadius: 32,
-
     },
 
     buttonText: {
@@ -78,5 +77,21 @@ export const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
+    },
+
+    labelInputError: {
+        color: colors.pink,
+        fontFamily: 'Nunito_400Regular',
+        fontWeight: 'bold',
+        paddingBottom: 4,
+        paddingTop: 5
+    },
+
+    inputError: {
+        borderColor: colors.pink
+    },
+
+    labelError: {
+        color: colors.pink
     },
 });
