@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { View, Text,NativeSyntheticEvent,TextInputChangeEventData  } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../contexts/auth';
 import { AuthStackParamList } from '../../routes/auth.routes';
@@ -14,22 +14,33 @@ const Login: React.FC = () => {
     let [email, setEmail] = React.useState('');
     let [password, setPassword] = React.useState('');
     let [signInError, setSignInError] = React.useState(false);
+    let [errorMessage, setErrorMessage] = React.useState('');
     const { signIn } = useAuth();
 
     const navigation = useNavigation<LoginScreenProp>();
 
     function handleNavigateToForgotPassowrd() {
+        setSignInError(false);
         navigation.navigate('ForgotPassword');
     }
 
     async function handleSignIn() {
+        setSignInError(false);
+        Keyboard.dismiss();
+
+        if (email === '' || password === '') {
+            setSignInError(true);
+            setErrorMessage('* Campo(s) obrigatório(s)');
+            return;
+        }
+
         try {
-            setSignInError(false);
             await signIn(email, password);
         }
         catch (e) {
             setSignInError(true);
-        } 
+            setErrorMessage('E-mail e/ou senha inválidos');
+        }
     }
 
     return (
@@ -38,24 +49,24 @@ const Login: React.FC = () => {
             <Text style={styles.title}>DCE</Text>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Login</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.label, signInError ? styles.labelError : {}]}>Login</Text>
+                <TextInput style={[styles.input, signInError ? styles.inputError : {}]}
                     placeholder="aluno@uvvnet.com.br"
                     value={email}
-                    onChange={(e : NativeSyntheticEvent<TextInputChangeEventData>): void=>{ setEmail(e.nativeEvent.text)}}
+                    onChange={e => setEmail(e.nativeEvent.text)}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Senha</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.label, signInError ? styles.labelError : {}]}>Senha</Text>
+                <TextInput style={[styles.input, signInError ? styles.inputError : {}]}
                     secureTextEntry={true}
                     placeholderTextColor='#CCCCCC'
                     placeholder="••••••••••••••••••"
                     value={password}
                     onChange={e => setPassword(e.nativeEvent.text)}
                 />
-                {signInError && <Text style={styles.labelError}>E-mail e/ou senha inválidos</Text>}
+                {signInError && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
             </View>
 
             <View style={styles.forgotPasswordContainer}>

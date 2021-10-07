@@ -11,18 +11,18 @@ export const styles = StyleSheet.create({
     },
 
     text: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         fontFamily: 'FredokaOne_400Regular'
     },
 
     title: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         fontFamily: 'FredokaOne_400Regular',
         fontSize: 64
     },
 
     label: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
         paddingBottom: 4
@@ -34,8 +34,8 @@ export const styles = StyleSheet.create({
     },
 
     input: {
-        color: `${colors.primary}`,
-        borderColor: `${colors.primary}`,
+        color: colors.primary,
+        borderColor: colors.primary,
         borderRadius: 10,
         fontFamily: 'Nunito_400Regular',
         borderWidth: 1,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: `${colors.primary}`,
+        backgroundColor: colors.primary,
         height: 45,
         width: 156,
         flexDirection: 'row',
@@ -76,16 +76,24 @@ export const styles = StyleSheet.create({
     },
 
     linkText: {
-        color: `${colors.primary}`,
+        color: colors.primary,
         fontFamily: 'Nunito_400Regular',
         textDecorationLine: 'underline',
     },
 
-    labelError: {
-        color: `${colors.primary}`,
+    labelEmailPasswordError: {
+        color: colors.pink,
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
         paddingBottom: 4,
         paddingTop: 5
-    }
+    },
+
+    inputError: {
+        borderColor: colors.pink
+    },
+
+    labelError: {
+        color: colors.pink
+    },
 });
