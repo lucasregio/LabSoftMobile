@@ -11,18 +11,18 @@ export const styles = StyleSheet.create({
     },
 
     text: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         fontFamily: 'FredokaOne_400Regular'
     },
 
     title: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         fontFamily: 'FredokaOne_400Regular',
         fontSize: 64
     },
 
     label: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
         paddingBottom: 4
@@ -34,8 +34,8 @@ export const styles = StyleSheet.create({
     },
 
     input: {
-        color: `${colors.purple}`,
-        borderColor: `${colors.purple}`,
+        color: `${colors.primary}`,
+        borderColor: `${colors.primary}`,
         borderRadius: 10,
         fontFamily: 'Nunito_400Regular',
         borderWidth: 1,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: `${colors.purple}`,
+        backgroundColor: `${colors.primary}`,
         height: 45,
         width: 156,
         flexDirection: 'row',
@@ -76,13 +76,13 @@ export const styles = StyleSheet.create({
     },
 
     linkText: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         fontFamily: 'Nunito_400Regular',
         textDecorationLine: 'underline',
     },
 
     labelError: {
-        color: `${colors.pink}`,
+        color: `${colors.primary}`,
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
         paddingBottom: 4,

@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     },
 
     text: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         textAlign: 'center',
         fontWeight: 'bold',
         fontFamily: 'Nunito_400Regular',
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     },
 
     label: {
-        color: `${colors.purple}`,
+        color: `${colors.primary}`,
         fontFamily: 'Nunito_400Regular',
         fontSize: 14,
         fontWeight: 'bold',
@@ -44,8 +44,8 @@ export const styles = StyleSheet.create({
     },
 
     input: {
-        color: `${colors.purple}`,
-        borderColor: `${colors.purple}`,
+        color: `${colors.primary}`,
+        borderColor: `${colors.primary}`,
         borderRadius: 10,
         fontFamily: 'Nunito_400Regular',
         borderWidth: 1,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: `${colors.purple}`,
+        backgroundColor: `${colors.primary}`,
         height: 45,
         width: 193,
         flexDirection: 'row',

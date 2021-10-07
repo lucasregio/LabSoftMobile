@@ -6,13 +6,13 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../routes";
+import { AuthStackParamList } from "../../routes/auth.routes";
 
-type forgotPasswordScreenProp = StackNavigationProp<RootStackParamList, 'ForgotPassword'>;
+type ForgotPasswordScreenProp = StackNavigationProp<AuthStackParamList, 'ForgotPassword'>;
 
 const ForgotPassword: React.FC = () => {
     
-    const navigation = useNavigation<forgotPasswordScreenProp>();
+    const navigation = useNavigation<ForgotPasswordScreenProp>();
 
     function handleGoBack() {
         navigation.goBack();
