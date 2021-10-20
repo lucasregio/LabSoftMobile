@@ -97,4 +97,23 @@ export const styles = StyleSheet.create({
     labelError: {
         color: colors.pink
     },
+    
+    selectAthleticContainer: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between'
+    },
+
+    selectAthleticPlaceholder:{
+        color: '#cccccc',
+        fontFamily: 'Nunito_400Regular',
+        fontSize: 15
+        
+    },
+   
+    selectAthleticButtonText: {
+        color: colors.pink,
+        fontWeight: 'bold',
+        fontFamily: 'Nunito_400Regular',
+        fontSize: 15
+    },
 });

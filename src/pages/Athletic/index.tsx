@@ -6,21 +6,19 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../routes";
+import { AuthStackParamList } from "../../routes/auth.routes";
 
-type AthleticScreenProp = StackNavigationProp<RootStackParamList, 'Athletic'>;
+export type AthleticScreenProp = StackNavigationProp<AuthStackParamList, 'Athletic'>; 
 
-// import { Container } from './styles';
-
-
-
-const Athletic: React.FC = () => {
+const Athletic: React.FC<any> = ({...props}) => {
+        console.log('props', props)
+        const { selectedAthletic, onSelectedAthleticChange } = props.route.params
         const navigation = useNavigation<AthleticScreenProp>();
         const Logo = require('../../assets/uvv-icon.png');
         const imagem = {borderRadius: 80, width:80, margin: 15, }; 
         const imagemLogo = {  width: 100 };
 
-          function handleGoBack() {
+        const handleGoBack = () => {
               navigation.goBack();
           }
 
@@ -28,19 +26,61 @@ const Athletic: React.FC = () => {
     <View style = {styles.container}>
           <View style={styles.teste}> <Text style={styles.text}>Selecione sua Atlética</Text> </View>
 
-          
+           
             <View style={styles.body}>
                 <View style={imagemLogo}>
-                  <img style={imagem} src={Logo} /> 
-                  <img style={imagem} src={Logo} /> 
-                  <img style={imagem} src={Logo} /> 
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Tubaroes')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Leões')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Gorilas')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
+                </View>
+                <View style={imagemLogo}>
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Rinocerontes')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Lobos')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={()=>{
+                      onSelectedAthleticChange('Monstros')
+                      handleGoBack()
+                    }}
+                  >
+                    <img style={imagem} src={Logo} /> 
+                  </TouchableOpacity>
                 </View>
 
-                <View style={imagemLogo}>
-                  <img style={imagem} src={Logo} /> 
-                  <img style={imagem} src={Logo} /> 
-                  <img style={imagem} src={Logo} /> 
-                </View>
               
             </View>
 

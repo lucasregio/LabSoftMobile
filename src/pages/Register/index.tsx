@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from '@react-navigation/core';
-import { Text, View, Keyboard, Picker } from "react-native";
+import { Text, View, Keyboard, Picker, Alert } from "react-native";
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
@@ -10,7 +10,7 @@ import { RegisterSystem } from "../../services/Register";
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
 
-const Register: React.FC = () => {
+const Register: React.FC<RegisterScreenProp> = () => {
     
     let [registerError, setRegisterError] = React.useState(false);
     let [errorMessage, setErrorMessage] = React.useState('');
@@ -48,6 +48,11 @@ const Register: React.FC = () => {
         }
     }
 
+    function onSelectAthletic (selected: string) {
+        console.log(selected)
+        setAthletic(selected)
+    }
+
     return (
         <View style={styles.container}>
         <Text style={styles.text}>Cadastro</Text>
@@ -80,14 +85,39 @@ const Register: React.FC = () => {
         </View>
 
         <View style={styles.inputContainer}>
+                
             <Text style={[styles.label, registerError ? styles.labelError : {}]}>Atlética</Text>
-            <Picker
-                style={[styles.input, registerError ? styles.inputError : {}]}
-                onValueChange={(itemValue, itemIndex) => setAthletic(itemValue)}
-            >
-                <Picker.Item label="Tubarões" value="tu" />
-                <Picker.Item label="Lobos" value="lb" />
-            </Picker>
+            <View  style={[styles.input, styles.selectAthleticContainer ]}>
+                {athletic !== '' ?
+                    <Text style={styles.label} >
+                        {athletic}
+                    </Text>
+                :
+                <Text style={styles.selectAthleticPlaceholder}>
+                    Selecionar atlética
+                </Text>    
+                }
+                <TouchableOpacity
+                    onPress={
+                        ()=>{
+                            navigation.navigate('Athletic', {
+                            onSelectedAthleticChange: onSelectAthletic,
+                        })
+                }
+            }
+                >
+                    <Text style={styles.selectAthleticButtonText}>
+                        {
+                            athletic !== ''?
+                            'Trocar'
+                            :
+                            'Selecionar'
+                        
+                        }
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
 
         
