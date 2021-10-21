@@ -8,7 +8,7 @@ import Feed from '../pages/Feed';
 import Favorites from '../pages/Favorites';
 import Calendar from '../pages/Calendar';
 import Scoreboard from '../pages/Scoreboard';
-import Athletic from '../pages/Athletic';
+import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
 
 const Tab = createBottomTabNavigator();
@@ -105,7 +105,7 @@ const TabNavigator = () => {
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Athletic" component={Athletic} />
+            name="Athletic" component={AthleticNotification} />
         </Tab.Navigator>
     );
 }
