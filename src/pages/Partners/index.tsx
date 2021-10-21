@@ -5,8 +5,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import colors from "../../styles/colors"
 import { styles } from "./styles"
 import PartnerCard, { PartnerCardProps } from "./components/PartnerCard";
+import { useNavigation, useNavigationState } from "@react-navigation/core";
 
 const Partners: React.FC = () =>{
+  const navigation = useNavigation()
   const partners: PartnerCardProps[] = [
     {
       icon: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
@@ -37,7 +39,11 @@ const Partners: React.FC = () =>{
   >
     <View style={styles.headerContainer}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack()
+          }}
+        >
           <MaterialCommunityIcons
               name="arrow-left-thick"
               color={colors.primary}
