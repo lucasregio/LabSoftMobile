@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image, } from 'react-native'
 import { styles } from './styles';
 
+
 interface INewsCardProps {
     data: INewsCard
 }
@@ -15,6 +16,7 @@ export interface INewsCard {
 }
 
 const NewsCard: React.FC<INewsCardProps> = (props) =>{
+    
   return(
     <View style={styles.container}>
         <TouchableOpacity>
@@ -22,10 +24,12 @@ const NewsCard: React.FC<INewsCardProps> = (props) =>{
                 <Image style={styles.imagesStyleFeed} source={{ uri: props.data.image }} />
             </View>
             <View style={styles.viewInfo}>
-                <View style={styles.viewAtleticaInfo}>
-                    <Image style={styles.imageAtleticaFeed} source={{ uri: props.data.atleticaImage }} />
-                    <Text style={styles.textAtletica}>{props.data.atleticaName}</Text>
-                </View>
+                <TouchableOpacity onPress={ () => {  } } style={styles.viewAtleticaInfo}>
+                    <View style={styles.viewAtleticaInfo}>
+                        <Image style={styles.imageAtleticaFeed} source={{ uri: props.data.atleticaImage }} />
+                        <Text style={styles.textAtletica}>{props.data.atleticaName}</Text>
+                    </View>
+                </TouchableOpacity>
                 <View style={styles.viewTituloInfo}>
                     <Text style={styles.viewTextTituloInfo}>{props.data.titlePost}</Text>
                 </View>
