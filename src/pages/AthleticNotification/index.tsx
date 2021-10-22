@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 
 import colors from '../../styles/colors';
 import AthleticList from '../../components/ListAthletic';
 
 const AthleticNotification: React.FC = () => {
+    const [selected, setSelected] = useState<string>()
 
-  return (
+    return (
         <View style={styles.container}>
-            <AthleticList data={{
-                pageTitle: 'Altere sua atlética'
-            }}/>
+            <AthleticList 
+                pageTitle={'Altere sua atlética'}
+                selectedAthleticId={selected} 
+                onSelectItem={({id})=> setSelected(id)} 
+                />
             <View style={styles.viewStyleButton}>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Selecionar</Text>
                 </TouchableOpacity>
             </View>
         </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({

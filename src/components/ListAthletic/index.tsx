@@ -1,179 +1,182 @@
 import React from 'react';
-import { View, Image, StyleSheet, Text, FlatList } from 'react-native';
-
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import colors from '../../styles/colors';
-import AthleticSelector from '../../components/AthleticSelector';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import AthleticSelectButton, { Athletic } from '../AthleticSelectButton';
+
 
 interface AthleticListProps {
-    data: AthleticList
-}
-
-export interface AthleticList {
     pageTitle: string
+    selectedAthleticId?: string
+    onSelectItem?: (athletic: Athletic) => void
 }
 
-const AthleticList: React.FC<AthleticListProps> = (props) => {
+const AthleticList: React.FC<AthleticListProps> = ({pageTitle, onSelectItem, selectedAthleticId}) => {
     
-    const AthleticList = [
+    const AthleticList: Athletic[] = [
         {
-            id: 1,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '1',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 2,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '2',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 3,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '3',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
+            name: 'Raposas',
         },{
-            id: 4,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '4',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 5,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '5',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 6,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '6',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 7,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '7',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 8,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '8',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 9,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '9',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 10,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '10',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 11,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '11',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 12,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '12',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 13,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '13',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 14,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '14',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 15,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '15',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 16,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '16',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 17,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '17',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 18,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '18',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 19,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '19',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 20,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '20',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 21,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '21',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 22,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '22',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 23,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '23',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 24,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '24',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 25,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '25',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 26,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '26',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 27,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '27',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 28,
-            atleticaImage: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
-            atleticaName: 'Lobos',
+            id: '28',
+            image: 'http://178.238.233.159:5555/public/images/atleticas/02b25a7c-c9ed-463c-b15d-bae63c5d6a3c.jpg',
+            name: 'Lobos',
         },{
-            id: 29,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '29',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 30,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '30',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 31,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '31',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 32,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '32',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 33,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '33',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 34,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '34',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },{
-            id: 35,
-            atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-            atleticaName: 'Tubarões',
+            id: '35',
+            image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+            name: 'Tubarões',
         },
     ]
 
   return (
-        <View style={styles.container}>
-            
-          <Text style={styles.textAthleticChange}>{props.data.pageTitle}</Text>
-          <View style={styles.viewListAthletics}>
-            <FlatList
-            data={AthleticList}
-            showsVerticalScrollIndicator={false}
-            numColumns={4}
-            renderItem={ ({item}) => <AthleticSelector data={item}/> }
-            key={'id'}
-            />
-          </View>
-
+    <View style={styles.container}>
+        
+        <Text style={styles.textAthleticChange}>{pageTitle}</Text>
+        <View style={styles.viewListAthletics}>
+        <FlatList
+        data={AthleticList}
+        showsVerticalScrollIndicator={false}
+        numColumns={4}
+        renderItem={ ({item: athletic}) => 
+            <AthleticSelectButton 
+                isSelected={selectedAthleticId === athletic.id}
+                athletic={athletic}
+                onSelect={onSelectItem}
+            /> 
+        }
+        key={'id'}
+        />
         </View>
+
+    </View>
   );
 }
 
