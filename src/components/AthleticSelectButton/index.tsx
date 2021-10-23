@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import colors from '../../styles/colors';
 
 export interface AthleticSelectButtonProps {
-    athletic: Athletic
+    athletic: IAthletic
     isSelected: boolean
-    onSelect?: (athletic: Athletic) => void
+    onSelect?: (athletic: IAthletic) => void
 }
 
-export interface Athletic {
+export interface IAthletic {
     id: string,
     image: string,
     name: string,
