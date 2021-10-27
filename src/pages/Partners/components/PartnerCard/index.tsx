@@ -22,9 +22,6 @@ const PartnerCard: React.FC<PartnerCardProps> = ({
       discountPercent && <DiscountLabel discountPercent={discountPercent} />
     }
     <View style={styles.card}>
-      {/* <View 
-      style={styles.discountLabel} 
-      /> */}
       <View style={styles.titleContainer} >
         <Image style={styles.icon} resizeMode='contain' source={{uri: icon}}  />
         <Text style={styles.title}>{title}</Text>
