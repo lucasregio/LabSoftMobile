@@ -1,18 +1,18 @@
 import React from 'react';
 import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import colors from '../../styles/colors';
-import AthleticSelectButton, { Athletic } from '../AthleticSelectButton';
+import AthleticSelectButton, { IAthletic } from '../AthleticSelectButton';
 
 
 interface AthleticListProps {
     pageTitle: string
     selectedAthleticId?: string
-    onSelectItem?: (athletic: Athletic) => void
+    onSelectItem?: (athletic: IAthletic) => void
 }
 
 const AthleticList: React.FC<AthleticListProps> = ({pageTitle, onSelectItem, selectedAthleticId}) => {
     
-    const AthleticList: Athletic[] = [
+    const AthleticList: IAthletic[] = [
         {
             id: '1',
             image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',

@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: `${colors.offwhiteblue}`,
+        backgroundColor: colors.offwhiteblue,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
