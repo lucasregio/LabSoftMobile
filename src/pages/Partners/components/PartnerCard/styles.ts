@@ -30,5 +30,22 @@ export const styles = StyleSheet.create({
     fontFamily: 'Nunito_400Regular',
     fontWeight: '100',
     fontSize: 14
+  },
+  discountLabel: {
+    position: 'absolute',
+    right:0,
+    top:0,
+    width: 156,
+    height: 0,
+    borderBottomWidth: 41,
+    borderBottomColor: colors.primary,
+    borderLeftWidth: 45,
+    borderLeftColor: "transparent",
+    borderRightWidth: 45,
+    borderRightColor: "transparent",
+    borderStyle: "solid",
+    transform:[{
+      rotate: '45deg'
+    }]
   }
 })

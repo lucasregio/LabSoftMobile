@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 4
     },
 
-    inputContainer: {
+    inputHolder: {
         paddingBottom: 10,
         alignSelf: 'stretch'
     },
@@ -47,6 +47,24 @@ export const styles = StyleSheet.create({
 
     buttonContainer: {
         padding: 20
+    },
+
+    inputContainer: {
+        //color: colors.primary,
+        borderColor: colors.primary,
+        borderRadius: 10,
+        borderWidth: 1,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    inputAthletic: {
+        color: colors.primary,
+        fontFamily: 'Nunito_400Regular',
+        padding: 10,
+        fontSize: 15,
+        flex: 1
     },
 
     button: {
@@ -70,32 +88,16 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    forgotPasswordContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignSelf: 'stretch'
-    },
-
-    linkText: {
-        color: colors.primary,
-        fontFamily: 'Nunito_400Regular',
-        textDecorationLine: 'underline',
-    },
-
-    labelEmailPasswordError: {
-        color: colors.pink,
-        fontFamily: 'Nunito_400Regular',
-        fontWeight: 'bold',
-        paddingBottom: 4,
-        paddingTop: 5
-    },
-
     inputError: {
         borderColor: colors.pink
     },
 
     labelError: {
-        color: colors.pink
+        color: colors.pink,
+    },
+
+    labelBottom: {
+        paddingTop: 5
     },
     
     selectAthleticContainer: {
@@ -114,6 +116,13 @@ export const styles = StyleSheet.create({
         color: colors.pink,
         fontWeight: 'bold',
         fontFamily: 'Nunito_400Regular',
-        fontSize: 15
+        fontSize: 15,
+        paddingRight: 10
     },
+
+    pickerText: {
+        fontFamily: 'Nunito_400Regular',
+        color: colors.primary,
+        flex: 1
+    }
 });

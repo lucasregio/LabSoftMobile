@@ -45,7 +45,8 @@ export const styles = StyleSheet.create({
       marginRight: 5
   },
   cardsListContainer:{
-    marginTop: 16,
-    marginHorizontal: 10
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingHorizontal: 10
   }
 })

@@ -1,5 +1,7 @@
 import React from "react"
 import { View, Text, Image } from "react-native"
+import colors from "../../../../styles/colors"
+import DiscountLabel from "../DiscountLabel"
 import { styles } from "./styles"
 
 export interface PartnerCardProps {
@@ -10,20 +12,25 @@ export interface PartnerCardProps {
 }
 
 const PartnerCard: React.FC<PartnerCardProps> = ({
-  description, 
+  description,  
   discountPercent,
   icon,
   title
 }) => {
-  return <View style={styles.card}>
-    <View style={styles.titleContainer}>
-      <Image style={styles.icon} source={{uri: icon}}  />
-      <Text style={styles.title}>{title}</Text>
+  return <View>
+    {
+      discountPercent && <DiscountLabel discountPercent={discountPercent} />
+    }
+    <View style={styles.card}>
+      <View style={styles.titleContainer} >
+        <Image style={styles.icon} resizeMode='contain' source={{uri: icon}}  />
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      
+      <Text style={styles.description}>
+        {description}
+      </Text>
     </View>
-    
-    <Text style={styles.description}>
-      {description}
-    </Text>
   </View>
 }
 

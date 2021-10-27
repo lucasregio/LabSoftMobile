@@ -1,7 +1,9 @@
+
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/core';
 import { Text, View, Keyboard, Picker, Alert } from "react-native";
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Picker } from "@react-native-picker/picker";
 
 import { styles } from './styles';
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -13,7 +15,19 @@ import { IAthletic } from "../../components/AthleticSelectButton";
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
 
+const registerSchema = yup.object({
+    email: yup.string().required('* Campo obrigatório'),
+    name: yup.string().required('* Campo obrigatório'),
+    password: yup.string().min(6, 'Senha precisa ter pelo menos 6 caracteres').required('* Campo obrigatório'),
+    confirmPassword: yup.string()
+        .oneOf([yup.ref('password')], 'Senhas devem ser as mesmas')
+        .required('* Campo obrigatório'),
+    athletic: yup.string().required('* Campo obrigatório'),
+    course: yup.string().required('* Campo obrigatório'),
+})
+
 const Register: React.FC<RegisterScreenProp> = () => {
+  
     let [registerError, setRegisterError] = useState(false);
     let [isVisibleAthleticModal, setIsVisibleAthleticModal] = useState(false);
     let [errorMessage, setErrorMessage] = useState('');
@@ -24,26 +38,43 @@ const Register: React.FC<RegisterScreenProp> = () => {
     let [selectedAthletic, setSelectedAthletic] = useState<IAthletic>()
     // let [athletic, setAthletic] = useState('');
     let [course, setCourse] = useState('');
-    
 
     const navigation = useNavigation<RegisterScreenProp>();
+    const route = useRoute<RouteProp<AuthStackParamList, 'Register'>>();
+
+    const formikProps = useFormik({
+        initialValues: {email: '', name: '', password: '', confirmPassword: '', athletic: '', course: ''},
+        validationSchema: registerSchema,
+        onSubmit: values => handleSubmit(values)
+    })
+
+    useEffect(() => {
+        if (route.params?.athleticName) {
+            formikProps.setFieldValue('athletic', route.params?.athleticName);
+        }
+    }, [route.params?.athleticName])
 
     function handleGoBack() {
         navigation.goBack();
     }
-
     function handleSelectAthletic() {
         setIsVisibleAthleticModal(true)
     }
     async function handleRegister() {
         setRegisterError(false)
+
         Keyboard.dismiss();
 
-        if(email === '' || name === '' || password === '' || confirmPasswor === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterError(true); 
-            return;
-        }
+        console.log({values})
+
+        let {
+            email,
+            name,
+            password,
+            confirmPassword,
+            athletic,
+            course
+        } = values;
         
         try {
             await RegisterSystem(email, name, password, confirmPasswor, selectedAthletic?.name || '', course);
@@ -66,13 +97,12 @@ const Register: React.FC<RegisterScreenProp> = () => {
 
     return (
         <SafeAreaView style={{flex:1}}>
-
             <AthleticSelectorModal 
                 onSelect={setSelectedAthletic} 
                 onClose={onClose}  
                 isVisible={isVisibleAthleticModal} 
                 />
-            
+        
             <View style={styles.container}>
             <Text style={styles.text}>Cadastro</Text>
             <Text style={styles.title}>DCE</Text> 
