@@ -7,7 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 import { styles } from './styles';
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../routes/auth.routes";
-import { register } from "../../services/register";
+import { register } from "../../services/Register";
 import Input from "../../components/Input";
 import PasswordToggleInput from "../../components/PasswordToggleInput";
 import { RouteProp } from "@react-navigation/native";
