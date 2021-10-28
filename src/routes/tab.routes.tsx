@@ -10,6 +10,7 @@ import Calendar from '../pages/Calendar';
 import Scoreboard from '../pages/Scoreboard';
 import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
+import FeedRoutes from './feed.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ const TabNavigator = () => {
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Feed" component={Feed} />
+            name="FeedRoutes" component={FeedRoutes} />
 
             <Tab.Screen options={{
                 tabBarIcon: ({color}) => (
