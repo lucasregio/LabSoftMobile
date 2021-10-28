@@ -13,11 +13,12 @@ import PasswordToggleInput from "../../components/PasswordToggleInput";
 import { RouteProp } from "@react-navigation/native";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { emailRegex } from "../../validations";
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
 
 const registerSchema = yup.object({
-    email: yup.string().required('* Campo obrigatório'),
+    email: yup.string().matches(emailRegex, 'E-mail inválido. Certifique-se de que o e-mail usa um domínio UVV').required('* Campo obrigatório'),
     name: yup.string().required('* Campo obrigatório'),
     password: yup.string().min(6, 'Senha precisa ter pelo menos 6 caracteres').required('* Campo obrigatório'),
     confirmPassword: yup.string()
