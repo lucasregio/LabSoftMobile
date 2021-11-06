@@ -89,8 +89,6 @@ const Login: React.FC = () => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText} onPress={handleSignIn}>Entrar</Text>
-                    {/*<Text style={styles.buttonText} onPress={tested}>Entrar</Text>*/}
-
                 </TouchableOpacity>
             </View>
 

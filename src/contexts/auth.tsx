@@ -8,6 +8,7 @@ interface AuthContextData {
     loading: boolean;
     signIn(email: string, password: string): Promise<void>;
     signOut(): void;
+    token?: String;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -16,18 +17,15 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const [user, setUser] = useState<object | null>(null);
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState<string>()
 
     useEffect(() => {
         async function loadStorageData() {
             const storagedUser = await AsyncStorage.getItem('@user');
             const storagedToken = await AsyncStorage.getItem('@token');
 
-            console.log(storagedUser == storagedToken)
-            console.log(storagedUser)
             if( !!storagedUser && !!storagedToken) {
                 setUser(JSON.parse(storagedUser));
-                console.log(storagedUser, storagedToken)
-                console.log("rafa");
             }
             setLoading(false);
         }
@@ -39,17 +37,27 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         try {
             const response = await auth.signIn(email, password);
-
-            console.log(response);
              
-            //@ts-ignore
-            setUser(response.data.user);
+           if(!!response.data.user && !!response.data.token){
+
+               setUser(response.data.user);
+               setToken(response.data.token);
+               await AsyncStorage.multiSet([
+                   ['@user', JSON.stringify(response.data.user)],
+                   
+                   ['@token', response.data.token]
+               ]);
+           }
+        //    else{
+        //         setUser(null)
+        //         setToken('')
+        //         await AsyncStorage.multiSet([
+        //             ['@user', ''],
+                    
+        //             ['@token', '']
+        //         ]);
+        //    }
     
-            await AsyncStorage.multiSet([
-                ['@user', JSON.stringify(response.data.user)],
-                //@ts-ignore
-                ['@token', response.data.token]
-            ]);
         } catch (e) {
             throw e;
         }
@@ -62,7 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!user, user, loading, signIn, signOut}}>
+        <AuthContext.Provider value={{signed: !!user, user, loading,token, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )
