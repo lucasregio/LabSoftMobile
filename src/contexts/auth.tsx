@@ -21,9 +21,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         async function loadStorageData() {
             const storagedUser = await AsyncStorage.getItem('@user');
             const storagedToken = await AsyncStorage.getItem('@token');
-            
-            if (storagedUser && storagedToken) {
+
+            console.log(storagedUser == storagedToken)
+            console.log(storagedUser)
+            if( !!storagedUser && !!storagedToken) {
                 setUser(JSON.parse(storagedUser));
+                console.log(storagedUser, storagedToken)
+                console.log("rafa");
             }
             setLoading(false);
         }
@@ -37,11 +41,13 @@ export const AuthProvider: React.FC = ({ children }) => {
             const response = await auth.signIn(email, password);
 
             console.log(response);
-        
+             
+            //@ts-ignore
             setUser(response.data.user);
     
             await AsyncStorage.multiSet([
                 ['@user', JSON.stringify(response.data.user)],
+                //@ts-ignore
                 ['@token', response.data.token]
             ]);
         } catch (e) {

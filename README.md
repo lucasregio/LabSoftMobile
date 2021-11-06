@@ -61,5 +61,3 @@ Você pode baixar o aplicativo do Expo para executar a aplicação pelo seu [cel
 ## Contribuir
 
 🚧 Em construção... 🚧
-
-Teste hook
