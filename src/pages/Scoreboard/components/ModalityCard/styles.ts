@@ -10,12 +10,16 @@ export const styles = StyleSheet.create({
     minHeight: 150
   },
   titleContainer: {
+    flexDirection:'row',
     alignItems: 'center',
-    flexDirection:'row'
+    flex: 2,
+    marginLeft:15,
+    marginRight:15
   },
   icon:{
     width: 50,
-    height: 50
+    height: 50,
+    borderRadius:15
   },
   title:{
     paddingLeft: 16,
@@ -23,23 +27,28 @@ export const styles = StyleSheet.create({
     fontFamily: 'Nunito_400Regular',
     fontWeight: 'bold',
   },
-  description: {
-    marginTop: 20,
-    marginHorizontal: '15%',
-    width: '70%',
-    fontFamily: 'Nunito_400Regular',
-    fontWeight: '100',
-    fontSize: 14
-  },
   arrow: {
-    marginRight: 16
+    margin: 15
   },
   iconTeam: {
     width: 25,
     height: 25,
+    borderRadius: 70/2,
+    marginLeft:10,
+    marginRight:10
+  },
+  line: {
+    backgroundColor: '#D3D3D3',
+    height: 2,
+    marginBottom: 10,
     borderRadius: 70/2
   },
   nextGame: {
+    flex: 1,
+    flexDirection: 'row',
     paddingLeft: 16
+  },
+  nextDate:{
+    marginLeft:'75%'
   }
 })
