@@ -10,28 +10,32 @@ import { useNavigation, useNavigationState } from "@react-navigation/core";
 const Modalities: React.FC = () =>{
   const modalities: ModalityCardProps[] = [
     {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      title: 'Wizard',
-      iconTeam1: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      iconTeam2: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png'
+      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
+      title: 'Futebol Masculino',
+      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
+      nextDate: '12 de Outubro'
     },
     {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716944875139163/8c314c4047c7cbf57506c9ef892b8892.png',
-      title: 'Icone',
-      iconTeam1: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      iconTeam2: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png'
+      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
+      title: 'Futebol Feminino',
+      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
+      nextDate: '13 de Outubro'
     },
     {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716985656344627/2dd63f14db99d6df1526b63936126239.png',
-      title: 'Skt Mafia',
-      iconTeam1: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      iconTeam2: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png'
+      icon: 'https://img.ibxk.com.br/2019/07/26/26171514413327.jpg',
+      title: 'League of Legends',
+      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
+      nextDate: '17 de Outubro'
     },
     {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902717008708263957/1a2fd0768e74dcb907f04676f1324f54.png',
-      title: 'Universidade Paralela',
-      iconTeam1: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      iconTeam2: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png'
+      icon: 'https://s2.glbimg.com/yCJBIZkVQF69YBZ3sceVu39GS9w=/463x0:1619x1141/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/s/x/qUnJOGTgADPKf1O01v7A/fifa-22-logomarca.png',
+      title: 'FIFA 22',
+      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
+      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
+      nextDate: '12 de Novembro'
     },
 ]
   return <View
@@ -63,14 +67,18 @@ const Modalities: React.FC = () =>{
         
         const {
           icon, 
-          title
+          title,
+          iconTeam1,
+          iconTeam2,
+          nextDate
         } = partner
         
         return <ModalityCard 
           icon={icon}
-          iconTeam1={icon}
-          iconTeam2={icon}
+          iconTeam1={iconTeam1}
+          iconTeam2={iconTeam2}
           title={title}
+          nextDate={nextDate}
           />
       }}
     />
