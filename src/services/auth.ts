@@ -33,12 +33,14 @@ export async function signIn(email: string, password: string): Promise<Response>
         })
         .catch((err) => { 
 
-            return {
-                data: {
-                    error: "Invalid Email and/or password.",
-                },
-                status: 401,
-            }
+            // return {
+            //     data: {
+            //         error: "Invalid Email and/or password.",
+            //     },
+            //     status: 401,
+            // }
+            throw new Error(" Invalid Email and/or password.");
+            
         });
     console.log("resultado: ",result.status);
     return result;
