@@ -4,31 +4,33 @@ import colors from "../../../../styles/colors"
 import { styles } from "./styles"
 import { AntDesign } from '@expo/vector-icons'; 
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/core";
+import { NavigationProp, useNavigation } from "@react-navigation/core";
+import { AuthStackParamList } from "../../../../routes/auth.routes";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ModalityStackParamList } from "../../../../routes/modality.routes";
+
 
 export interface ModalityCardProps {
   icon: string,
   iconTeam1: string,
   iconTeam2: string,
   title: string,
-  nextDate: string
+  nextDate: string,
+  onPress?: () => void
 }
 
-const ModalityCard: React.FC<ModalityCardProps> = ({
+export const ModalityCard: React.FC<ModalityCardProps> = ({
   icon,
   iconTeam1,
   iconTeam2,
   title,
-  nextDate
+  nextDate,
+  onPress
 }) => {
-  
-  const navigation = useNavigation()
 
-  const handleOnPress = () => {
-    navigation() 
-  }
 
-  return <TouchableOpacity onPress={handleOnPress} >
+
+  return <TouchableOpacity onPress={onPress} >
     <View style={styles.card}>
       <View style={styles.titleContainer} >
         <Image style={styles.icon} resizeMode='contain' source={{uri: icon}}  />
@@ -50,4 +52,3 @@ const ModalityCard: React.FC<ModalityCardProps> = ({
   </TouchableOpacity>
 }
 
-export default ModalityCard
