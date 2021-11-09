@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
-import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
-
+import React, { useCallback, useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Athletic } from '../../components/AthleticSelectButton';
 import colors from '../../styles/colors';
 import AthleticList from '../../components/ListAthletic';
+import { getAthletics } from '../../services/athletic';
+import { useFocusEffect } from '@react-navigation/core';
 
 const AthleticNotification: React.FC = () => {
     const [selected, setSelected] = useState<string>()
+    const [listaAtletica, setListaAtletica] = useState<Athletic[]>([]);
+
+    useFocusEffect(
+        useCallback(
+            () => {
+            try{
+
+                const response = getAthletics();
+                response.then((res)=>{
+                    setListaAtletica(res);
+                })
+            }catch{
+                throw new Error("Não foi possível carregar as tléticas");
+            }
+      },[])
+    );
+    
 
     return (
         <View style={styles.container}>
             <AthleticList 
                 pageTitle={'Altere sua atlética'}
                 selectedAthleticId={selected} 
-                onSelectItem={({id})=> setSelected(id)} 
+                onSelectItem={({id})=> setSelected(id)}
+                list = {listaAtletica} 
                 />
             <View style={styles.viewStyleButton}>
                 <TouchableOpacity style={styles.button}>
