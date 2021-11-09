@@ -3,6 +3,8 @@ import { View, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-n
 
 import { FontAwesome5 } from '@expo/vector-icons';
 import NewsCard from '../../components/NewsCard';
+import { useFocusEffect } from '@react-navigation/core';
+import { useHeader } from '../../contexts/header';
 
 const Feed: React.FC = () => {
 
@@ -69,6 +71,10 @@ const Feed: React.FC = () => {
             titlePost: 'Amigos se encontram no bar, que dia louco',
         },
     ]
+
+    const { setTitle } = useHeader();
+
+    useFocusEffect(()=> setTitle('Home'));
 
   return(
     <View style={styles.container}>
