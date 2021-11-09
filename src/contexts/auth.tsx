@@ -8,7 +8,7 @@ interface AuthContextData {
     loading: boolean;
     signIn(email: string, password: string): Promise<void>;
     signOut(): void;
-    token?: String;
+    token?: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
