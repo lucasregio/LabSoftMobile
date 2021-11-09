@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import AthleticList from "../../../components/ListAthletic";
 import { StyleSheet } from "react-native";
@@ -6,6 +6,9 @@ import colors from "../../../styles/colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../../routes/auth.routes";
 import { useNavigation } from "@react-navigation/native";
+import { getAthletics } from '../../../services/athletic';
+import { Athletic } from "../../../components/AthleticSelectButton";
+import { signIn } from "../../../services/auth";
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
 
@@ -13,7 +16,8 @@ const RegisterSelectAthletic: React.FC = () => {
 
     let [id, setId] = useState<string | null>(null);
     let [name, setName] = useState<string | null>(null);
-    const [selected, setSelected] = useState<string>()
+    const [selected, setSelected] = useState<string>();
+    const [listAthletic, setListAthletic] = useState<Athletic[]>([]);
 
     const navigation = useNavigation<RegisterScreenProp>();
 
@@ -32,12 +36,27 @@ const RegisterSelectAthletic: React.FC = () => {
         setSelected(id);
     }
 
+    async function getTokenRegister(){
+            try{
+                const responseAuth = await signIn("mobile@uvvnet.com.br","mobile");
+                const responseAthletics = await getAthletics(responseAuth.data.token);
+                setListAthletic(responseAthletics);
+            }catch{
+                throw new Error("Erro ao obter token para o Register!");
+            }
+    }
+
+    useEffect(()=>{
+        getTokenRegister();
+    },[selected])
+
     return (
         <View style={styles.container}>
             <AthleticList 
                 pageTitle={'Altere sua atlética'}
                 selectedAthleticId={selected} 
-                onSelectItem={({id, name})=> onSelectAthletic(id, name)} 
+                onSelectItem={({id, name})=> onSelectAthletic(id, name)}
+                list = {listAthletic}
                 />
             <View style={styles.viewStyleButton}>
                 <TouchableOpacity style={styles.button} onPress={onConfirm}>

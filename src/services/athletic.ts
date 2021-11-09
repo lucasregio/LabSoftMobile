@@ -2,11 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Athletic } from './../components/AthleticSelectButton/index';
 import api from './api';
 
-export async function getAthletics(): Promise<Athletic[]> {
+export async function getAthletics(registerToken?:string): Promise<Athletic[]> {
   let array : Athletic[] = [];
   const token = await AsyncStorage.getItem('@token');
   const result  = await api
-    .get("/atleticas", { headers: {'Authorization': 'Bearer '+  token} })
+    .get("/atleticas", { headers: {'Authorization': 'Bearer '+  (!!registerToken ? registerToken: token)} })
     .then((res) => {
         
         res.data.forEach( (element:any) => {

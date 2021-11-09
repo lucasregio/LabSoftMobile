@@ -22,7 +22,7 @@ const AthleticNotification: React.FC = () => {
             }catch{
                 throw new Error("Não foi possível carregar as tléticas");
             }
-      },[])
+      },[selected])
     );
     
 

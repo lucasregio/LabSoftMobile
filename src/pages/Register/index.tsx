@@ -28,6 +28,12 @@ const registerSchema = yup.object({
     course: yup.string().required('* Campo obrigatório'),
 })
 
+// IMPORTANTE:
+// -- No momento a API não tem a rota da tabela aluno.
+// -- Pelo que eu entendi (Rafa Moreira) a tabela usuário é utilizada para definir apenas o tipo do usuário.
+// -- para criar um cadastro de um aluno (usário do app)
+// -- vamos precisar do endpoint da tabela aluno, pois alem dos dados 
+
 const Register: React.FC<RegisterScreenProp> = () => {
     
     const navigation = useNavigation<RegisterScreenProp>();
