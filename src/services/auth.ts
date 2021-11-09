@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import api from "../services/api"
 
 interface AuthData {
     token?: string;
@@ -15,8 +15,8 @@ interface Response {
 }
 
 export async function signIn(email: string, password: string): Promise<Response> {
-    const result = await axios
-        .post("http://178.238.233.159:5555/auth/login", {
+    const result = await api
+        .post("/auth/login",{
             email: email,
             senha: password,
         })
