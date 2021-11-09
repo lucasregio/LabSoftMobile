@@ -1,47 +1,32 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Athletic } from './../components/AthleticSelectButton/index';
-import axios from "axios";
-import { useAuth } from '../contexts/auth';
+import api from './api';
 
-interface athleticData{
-  athletics?: Athletic[];
-  error?: string;
-}
-
-export interface Response{
-  data: athleticData;
-  status: number;
-}
-
-export function validToken(): string{
-    const { token } = useAuth();
-
-    console.log("O valor do token que eu peguei é: ",token)
-    if(!!token){
-        return token;
-    }
-
-    return '';
-}
-
-export async function getAthletics(): Promise<Response> {
-  const result = await axios
-    .get("http://178.238.233.159:5555/atleticas", { headers: {'Authorization': 'Bearer ' + validToken() } })
+export async function getAthletics(): Promise<Athletic[]> {
+  let array : Athletic[] = [];
+  const token = await AsyncStorage.getItem('@token');
+  const result  = await api
+    .get("/atleticas", { headers: {'Authorization': 'Bearer '+  token} })
     .then((res) => {
-        return  {
-            data: {
-              athletics: res.data,
-            },
-            status: res.status,
-        }
+        
+        res.data.forEach( (element:any) => {
+          array.push({
+            id: element.id,
+            image: 'http://'+element.logo,
+            name: element.nome,
+          })
+        });
+        return array;
     })
     .catch((err) => {
-      return {
-        data: {
-          error: "Invalid Email and/or password.",
-        },
-        status: 401,
-      };
+      // return {
+      //   data: {
+      //     error: "Invalid Email and/or password.",
+      //   },
+      //   status: 401,
+      // };
+      throw new Error("Invalid token or path!");
+      
     });
-  console.log("resultado getathletics: ", result.status);
-  return result;
+    return result;
 }
