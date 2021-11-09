@@ -7,9 +7,10 @@ import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from '@expo/vector-
 import Feed from '../pages/Feed';
 import Favorites from '../pages/Favorites';
 import Calendar from '../pages/Calendar';
-import Scoreboard from '../pages/ModalityList';
+import Scoreboard from '../pages/Scoreboard';
 import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
+import FeedRoutes from './feed.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ const TabNavigator = () => {
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Feed" component={Feed} />
+            name="FeedRoutes" component={FeedRoutes} />
 
             <Tab.Screen options={{
                 tabBarIcon: ({color}) => (

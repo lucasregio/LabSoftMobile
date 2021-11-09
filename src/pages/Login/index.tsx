@@ -5,6 +5,8 @@ import { View, Text, Keyboard } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../contexts/auth';
 import { AuthStackParamList } from '../../routes/auth.routes';
+import {testeAxios} from '../../services/teste';
+
 
 import { styles } from './styles';
 
@@ -18,6 +20,10 @@ const Login: React.FC = () => {
     const { signIn } = useAuth();
 
     const navigation = useNavigation<LoginScreenProp>();
+
+    function tested(){
+        testeAxios(email,password);
+    }
 
     function handleNavigateToForgotPassowrd() {
         setSignInError(false);
