@@ -7,7 +7,7 @@ import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from '@expo/vector-
 import Feed from '../pages/Feed';
 import Favorites from '../pages/Favorites';
 import Calendar from '../pages/Calendar';
-import Scoreboard from '../pages/Scoreboard';
+import Scoreboard from '../pages/ModalityList';
 import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
 
