@@ -8,6 +8,7 @@ interface AuthContextData {
     loading: boolean;
     signIn(email: string, password: string): Promise<void>;
     signOut(): void;
+    token?: String;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -16,13 +17,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const [user, setUser] = useState<object | null>(null);
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState<string>()
 
     useEffect(() => {
         async function loadStorageData() {
             const storagedUser = await AsyncStorage.getItem('@user');
             const storagedToken = await AsyncStorage.getItem('@token');
-            
-            if (storagedUser && storagedToken) {
+
+            if( !!storagedUser && !!storagedToken) {
                 setUser(JSON.parse(storagedUser));
             }
             setLoading(false);
@@ -35,15 +37,27 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         try {
             const response = await auth.signIn(email, password);
+             
+           if(!!response.data.user && !!response.data.token){
 
-            console.log(response);
-        
-            setUser(response.data.user);
+               setUser(response.data.user);
+               setToken(response.data.token);
+               await AsyncStorage.multiSet([
+                   ['@user', JSON.stringify(response.data.user)],
+                   
+                   ['@token', response.data.token]
+               ]);
+           }
+        //    else{
+        //         setUser(null)
+        //         setToken('')
+        //         await AsyncStorage.multiSet([
+        //             ['@user', ''],
+                    
+        //             ['@token', '']
+        //         ]);
+        //    }
     
-            await AsyncStorage.multiSet([
-                ['@user', JSON.stringify(response.data.user)],
-                ['@token', response.data.token]
-            ]);
         } catch (e) {
             throw e;
         }
@@ -56,7 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!user, user, loading, signIn, signOut}}>
+        <AuthContext.Provider value={{signed: !!user, user, loading,token, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )
