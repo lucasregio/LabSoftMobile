@@ -14,6 +14,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 12
   },
+  image:{
+    borderRadius: 25
+  },
   teamContainer: {
     alignItems: 'center'
   },
