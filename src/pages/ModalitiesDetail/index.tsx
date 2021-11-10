@@ -9,6 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useHeader } from "../../contexts/header"
 import { ModalityStackParamList } from "../../routes/modality.routes"
 import colors from "../../styles/colors"
+import { ChampionshipDetails } from "./components/ChampionshipDetails"
 import { ModalityDetailHeader } from "./components/ModalityDetailHeader"
 import { styles } from "./styles"
 
@@ -49,6 +50,14 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
         selected={isRightSelected? 'right' : 'left'}
         onClickSwap={(val) => setIsRightSelected(val)}
       />
+      {
+        isRightSelected ?
+        <ChampionshipDetails/>
+        :
+        <View style={{paddingTop: 200, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>Jogos</Text>
+        </View>
+      }
       
     </SafeAreaView>
   )
