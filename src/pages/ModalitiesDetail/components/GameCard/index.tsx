@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { styles } from "./styles";
@@ -14,12 +13,12 @@ interface Game {
   teamLeft: Team
 }
 
-export interface GameResultCardProps {
+export interface GameCardProps {
   gameOnTop: Game,
   gameOnBottom: Game,
 }
 
-export const GameResultCard: React.FC<GameResultCardProps> = ({gameOnTop, gameOnBottom}) => (
+export const GameCard: React.FC<GameCardProps> = ({gameOnTop, gameOnBottom}) => (
   <View style={styles.container} >
     <View style={styles.scoreContainer}>
       <View style={styles.teamContainer}>
@@ -29,7 +28,7 @@ export const GameResultCard: React.FC<GameResultCardProps> = ({gameOnTop, gameOn
         </Text>
       </View>
       <Text style={styles.scoreText}>
-        {gameOnTop.teamLeft.score + ' : ' + gameOnTop.teamRight.score}
+        VS
       </Text>
       <View style={styles.teamContainer}>
         <Image style={styles.image} source={{uri: gameOnTop.teamRight.image, width:25, height: 25 }} />
@@ -37,24 +36,15 @@ export const GameResultCard: React.FC<GameResultCardProps> = ({gameOnTop, gameOn
         {gameOnTop.teamRight.name}
         </Text>
       </View>
-    </View>
-    <View style={styles.divider} />
-    <View style={styles.scoreContainer}>
-      <View style={styles.teamContainer}>
-        <Image style={styles.image} source={{uri: gameOnBottom.teamLeft.image, width:25, height: 25 }} />
-        <Text style={styles.teamLabel}>
-          {gameOnBottom.teamLeft.name}
-        </Text>
-      </View>
-      <Text style={styles.scoreText}>
-        {gameOnBottom.teamLeft.score + ' : ' + gameOnBottom.teamRight.score}
+      <Text style={styles.detailText}>
+        Quinta-feira - 17:30
       </Text>
-      <View style={styles.teamContainer}>
-        <Image style={styles.image} source={{uri: gameOnBottom.teamRight.image, width:25, height: 25 }} />
-        <Text style={styles.teamLabel}>
-        {gameOnBottom.teamRight.name}
-        </Text>
-      </View>
+      
     </View>
+
+    <Text style={styles.detailTextLocal}>
+        Ginásio UVV
+      </Text>
+
   </View>
 )

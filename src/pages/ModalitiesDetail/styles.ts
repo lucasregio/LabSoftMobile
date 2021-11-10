@@ -1,3 +1,4 @@
+
 import { Nunito_400Regular } from '@expo-google-fonts/nunito';
 import { StyleSheet } from "react-native";
 import colors from '../../styles/colors';
@@ -29,5 +30,4 @@ export const styles = StyleSheet.create({
   headerSwapButton: {
 
   }
-
 })

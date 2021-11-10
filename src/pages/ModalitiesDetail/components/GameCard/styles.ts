@@ -1,20 +1,19 @@
-
 import { StyleSheet } from "react-native";
 import colors from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    minWidth: 166,
+    minWidth: 300,
     backgroundColor: '#fff',
     padding: 12,
-    marginRight: 11
+    borderRadius: 10,
+    paddingBottom: 10
   },
   scoreContainer: {
     flexDirection:'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 12
+    textAlign: 'right',
   },
+
   image:{
     borderRadius: 25
   },
@@ -31,8 +30,29 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: "bold",
     color: colors.black,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    marginTop: 10
   },
+
+  detailText: {
+    fontFamily: 'Nunito_400Regular',
+    fontSize: 10,
+    fontWeight: "bold",
+    color: colors.black,
+    textAlign: 'right',
+    marginTop: 5,
+    marginLeft: 100
+  },
+
+  detailTextLocal: {
+    fontFamily: 'Nunito_400Regular',
+    fontSize: 10,
+    fontWeight: "bold",
+    color: colors.black,
+    marginLeft: 250,
+    marginTop: -15
+  },
+
   divider:{
     height: 1,
     backgroundColor: '#888'
