@@ -8,6 +8,7 @@ import { FredokaOne_400Regular, useFonts } from '@expo-google-fonts/fredoka-one'
 import { Nunito_400Regular } from '@expo-google-fonts/nunito';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/contexts/auth';
+import { HeaderProvider } from './src/contexts/header';
 
 export default function App() {
   
@@ -26,7 +27,9 @@ export default function App() {
       <StatusBar style="dark" backgroundColor="transparent" translucent/>
       <NavigationContainer>
         <AuthProvider>
-          <Routes/>
+          <HeaderProvider>
+            <Routes/>
+          </HeaderProvider>
         </AuthProvider>
       </NavigationContainer>
     </>

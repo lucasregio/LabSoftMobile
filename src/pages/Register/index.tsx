@@ -1,173 +1,207 @@
-import React from "react";
-import { useNavigation } from '@react-navigation/core';
-import { Text, View, Keyboard } from "react-native";
-import {Picker} from '@react-native-community/picker';
+import React, { useEffect } from "react";
+import { useNavigation, useRoute } from '@react-navigation/core';
+import { Text, View, Keyboard, Alert } from "react-native";
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Picker } from "@react-native-picker/picker";
 
 import { styles } from './styles';
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../routes/auth.routes";
-import { RegisterSystem } from "../../services/Register";
+import { register } from "../../services/Register";
+import Input from "../../components/Input";
+import PasswordToggleInput from "../../components/PasswordToggleInput";
+import { RouteProp } from "@react-navigation/native";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { emailRegex } from "../../validations";
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
 
-const Register: React.FC = () => {
+const registerSchema = yup.object({
+    email: yup.string().matches(emailRegex, 'E-mail inválido. Certifique-se de que o e-mail usa um domínio UVV').required('* Campo obrigatório'),
+    name: yup.string().required('* Campo obrigatório'),
+    password: yup.string().min(6, 'Senha precisa ter pelo menos 6 caracteres').required('* Campo obrigatório'),
+    confirmPassword: yup.string()
+        .oneOf([yup.ref('password')], 'Senhas devem ser as mesmas')
+        .required('* Campo obrigatório'),
+    athletic: yup.string().required('* Campo obrigatório'),
+    course: yup.string().required('* Campo obrigatório'),
+})
+
+const Register: React.FC<RegisterScreenProp> = () => {
     
-    let [registerErrorEmail, setRegisterErrorEmail] = React.useState(false);
-    let [registerErrorName, setRegisterErrorName] = React.useState(false);
-    let [registerErrorPassword, setRegisterErrorPassword] = React.useState(false);
-    let [registerErrorConfirmPassword, setRegisterErrorConfirmPassword] = React.useState(false);
-    let [registerErrorAthletic, setRegisterErrorAthletic] = React.useState(false);
-    let [registerErrorCourse, setRegisterErrorCourse] = React.useState(false);
-    let [registerError, setRegisterError] = React.useState(false);
-
-    let [errorMessage, setErrorMessage] = React.useState('');
-    let [email, setEmail] = React.useState('');
-    let [name, setName] = React.useState('');
-    let [password, setPassword] = React.useState('');
-    let [confirmPasswor, setConfirmPassword] = React.useState('');
-    let [athletic, setAthletic] = React.useState('');
-    let [course, setCourse] = React.useState('');
-
     const navigation = useNavigation<RegisterScreenProp>();
+    const route = useRoute<RouteProp<AuthStackParamList, 'Register'>>();
+
+    const formikProps = useFormik({
+        initialValues: {email: '', name: '', password: '', confirmPassword: '', athletic: '', course: ''},
+        validationSchema: registerSchema,
+        onSubmit: values => handleSubmit(values)
+    })
+
+    useEffect(() => {
+        if (route.params?.athleticName) {
+            formikProps.setFieldValue('athletic', route.params?.athleticName);
+        }
+    }, [route.params?.athleticName])
 
     function handleGoBack() {
         navigation.goBack();
     }
 
-    async function handleRegister() {
-        setRegisterErrorEmail(false)
-        setRegisterErrorName(false)
-        setRegisterErrorPassword(false)
-        setRegisterErrorConfirmPassword(false)
-        setRegisterErrorAthletic(false)
-        setRegisterErrorCourse(false)
-
+    async function handleSubmit(values: {
+        email: string,
+        name: string,
+        password: string,
+        confirmPassword: string,
+        athletic: string,
+        course: string
+    }) {
         Keyboard.dismiss();
 
-        if(name === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorName(true); 
-            return;
-        }
+        console.log({values})
 
-
-        if(email === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorEmail(true); 
-            return;
-        }
-
-        if(password === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorPassword(true); 
-            return;
-        }
-
-        if(confirmPasswor === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorConfirmPassword(true); 
-            return;
-        }
-
-        if(athletic === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorAthletic(true); 
-            return;
-        }
-
-        if(course === '') {
-            setErrorMessage('* Campo obrigatório');
-            setRegisterErrorCourse(true); 
-            return;
-        }
+        let {
+            email,
+            name,
+            password,
+            confirmPassword,
+            athletic,
+            course
+        } = values;
         
         try {
-            await RegisterSystem(email, name, password, confirmPasswor, athletic, course);
-            console.log('Conta registrada com sucesso');
-            handleGoBack();
-        } catch(e) {
-            setErrorMessage('Erro ao realizar cadastro');
-            setRegisterError(false)
+            await register(email, name, password, athletic, course);
+            Alert.alert(
+                "Cadastro efetuado",
+                "Cadastro efetuado om sucesso!",
+                [
+                  { text: "OK", onPress: handleGoBack }
+                ]
+            );
+
+        } catch (e) {
+            console.log(e);
         }
     }
 
-    return (
-        <View style={styles.container}>
-        <Text style={styles.text}>Cadastro</Text>
-        <Text style={styles.title}>DCE</Text> 
-
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorName ? styles.labelError : {}]}>Nome completo</Text>
-            <TextInput style={[styles.input, registerErrorName ? styles.inputError : {}]}
-                placeholderTextColor='#CCCCCC'
-                placeholder="João Paulo"
-            onChange={e => setName(e.nativeEvent.text)}/>
-             {registerErrorName && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
-        </View>
-
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorEmail ? styles.labelError : {}]}>E-mail</Text>
-            <TextInput style={[styles.input, registerErrorEmail ? styles.inputError : {}]}
-                placeholderTextColor='#CCCCCC'
-                placeholder="exemplo@gmail.com"
-            onChange={e => setEmail(e.nativeEvent.text)}/>
-            {registerErrorEmail && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
-        </View>
- 
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorCourse ? styles.labelError : {}]}>Curso</Text>
-            <Picker
-                selectedValue={course}
-                style={[styles.input, registerErrorCourse ? styles.inputError : {}]}
-                onValueChange={(itemValue, itemIndex) => setCourse(itemValue.toString())}
-            >
-                <Picker.Item label="Ciência da computação" value="cc" />
-                <Picker.Item label="Engenharia da computação" value="ec" />
-            </Picker>
-            {registerErrorCourse && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
-        </View>
-
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorAthletic ? styles.labelError : {}]}>Atlética</Text>
-            <Picker
-                selectedValue={athletic}
-                style={[styles.input, registerErrorAthletic ? styles.inputError : {}]}
-                onValueChange={(itemValue, itemIndex) => setAthletic(itemValue.toString())}
-            >
-                <Picker.Item label="Tubarões" value="tu" />
-                <Picker.Item label="Lobos" value="lb" />
-            </Picker>
-            {registerErrorAthletic && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
-        </View>
-
+    return (     
         
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorPassword ? styles.labelError : {}]}>Senha</Text>
-            <TextInput style={[styles.input, registerErrorPassword ? styles.inputError : {}]}
-                secureTextEntry={true}
-                placeholderTextColor='#CCCCCC'
-                placeholder="*****************"
-            onChange={e => setPassword(e.nativeEvent.text)}/>
-             {registerErrorPassword && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
+        <View style={styles.container}>
+            <Text style={styles.text}>Cadastro</Text>
+            <Text style={styles.title}>DCE</Text> 
+            
+            <View style={styles.inputHolder}>
+                <Input 
+                    label={"Nome completo"}
+                    placeholder="Digite seu nome..."
+                    onChangeText={formikProps.handleChange('name')}
+                    value={formikProps.values.name}
+                    inputError={formikProps.errors.name != undefined && formikProps.touched.name}
+                    errorMessage={formikProps.errors.name}
+                />
+            </View>
+    
+            <View style={styles.inputHolder}>
+                <Input 
+                    label={"E-mail"}
+                    placeholder="Ex: aluno@uvvnet.com.br"
+                    onChangeText={formikProps.handleChange('email')}
+                    value={formikProps.values.email}
+                    inputError={formikProps.errors.email != undefined && formikProps.touched.email}
+                    errorMessage={formikProps.errors.email}
+                />
+            </View>
+            
+            <View style={styles.inputHolder}>
+                <Text style={[
+                    styles.label,
+                    formikProps.errors.course && formikProps.touched.course ? styles.labelError : {}
+                ]}>
+                    Curso
+                </Text>
+                <View style={[
+                    styles.inputContainer,
+                    formikProps.errors.course && formikProps.touched.course ? styles.inputError : {},
+                    {height: 50}
+                ]}>
+                    <Picker
+                        style={styles.pickerText}
+                        onValueChange={(itemValue, itemIndex) => formikProps.setFieldValue('course', itemValue)}
+                        selectedValue={formikProps.values.course}
+                    >
+                        <Picker.Item label="Selecione seu curso" value=""/>
+                        <Picker.Item label="Ciência da computação" value="cc" />
+                        <Picker.Item label="Engenharia da computação" value="ec" />
+                    </Picker>
+                </View>
+                { formikProps.errors.course && formikProps.touched.course && 
+                    <Text style={[styles.label, styles.labelError, styles.labelBottom]}>
+                        {formikProps.errors.course}
+                    </Text>
+                }
+            </View>
+    
+            <View style={styles.inputHolder}> 
+                <Text style={[
+                    styles.label, 
+                    formikProps.errors.athletic && formikProps.touched.athletic ? styles.labelError : {}
+                ]}>
+                    Atlética
+                </Text>
+                <View  style={[
+                    styles.inputContainer,
+                    formikProps.errors.athletic && formikProps.touched.athletic  ? styles.inputError : {}
+                ]}>
+                    <TextInput 
+                        placeholderTextColor={'#CCCCCC'}
+                        placeholder='Selecionar atlética'
+                        value={formikProps.values.athletic}
+                        editable={false}
+                        style={styles.inputAthletic}
+                    />
+                    
+                    <TouchableOpacity
+                        onPress={()=>{navigation.navigate('RegisterSelectAthletic')}}
+                    >
+                        <Text style={styles.selectAthleticButtonText}>
+                            { route.params?.athleticId !== undefined ? 'Trocar' : 'Selecionar' }
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                {formikProps.errors.athletic && formikProps.touched.athletic &&
+                    <Text style={[styles.label, styles.labelError, styles.labelBottom]}>
+                        {formikProps.errors.athletic}
+                    </Text>
+                }
+            </View>
+    
+            <View style={styles.inputHolder}>
+                <PasswordToggleInput 
+                    label='Senha'
+                    onChangeText={formikProps.handleChange('password')}
+                    value={formikProps.values.password}
+                    inputError={formikProps.errors.password != undefined && formikProps.touched.password}
+                    errorMessage={formikProps.errors.password}
+                />
+            </View>
+    
+            <View style={styles.inputHolder}>
+                <PasswordToggleInput 
+                    label='Confirme sua senha'
+                    onChangeText={formikProps.handleChange('confirmPassword')}
+                    value={formikProps.values.confirmPassword}
+                    inputError={formikProps.errors.confirmPassword != undefined && formikProps.touched.confirmPassword}
+                    errorMessage={formikProps.errors.confirmPassword}
+                />
+            </View>
+    
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={formikProps.handleSubmit as any}>
+                    <Text style={styles.buttonText}>Cadastrar</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-
-        <View style={styles.inputContainer}>
-            <Text style={[styles.label, registerErrorConfirmPassword ? styles.labelError : {}]}>Confirmar sua senha</Text>
-            <TextInput style={[styles.input, registerErrorConfirmPassword ? styles.inputError : {}]}
-                secureTextEntry={true}
-                placeholderTextColor='#CCCCCC'
-                placeholder="*****************"
-            onChange={e => setConfirmPassword(e.nativeEvent.text)}/>
-             {registerErrorConfirmPassword && <Text style={styles.labelEmailPasswordError}>{errorMessage}</Text>}
-        </View>
-
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText} onPress={handleRegister}>Cadastrar</Text>
-            </TouchableOpacity>
-        </View>
-    </View>
     );
 }
 

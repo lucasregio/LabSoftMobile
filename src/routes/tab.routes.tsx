@@ -7,9 +7,10 @@ import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from '@expo/vector-
 import Feed from '../pages/Feed';
 import Favorites from '../pages/Favorites';
 import Calendar from '../pages/Calendar';
-import Scoreboard from '../pages/Scoreboard';
-import Athletic from '../pages/Athletic';
+import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
+import FeedRoutes from './feed.routes';
+import ModalityRoutes from './modality.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ const TabNavigator = () => {
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Feed" component={Feed} />
+            name="FeedRoutes" component={FeedRoutes} />
 
             <Tab.Screen options={{
                 tabBarIcon: ({color}) => (
@@ -79,14 +80,16 @@ const TabNavigator = () => {
                             color= {color}
                         />
                     </View>
-                ),
-                title: 'Modalidade', 
-                tabBarActiveTintColor: colors.pink,
-                tabBarInactiveTintColor: colors.dark,
-                headerShown: false,
-                tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
-            }}
-            name="Scoreboard" component={Scoreboard} />
+                    ),
+                    title: 'Modalidade', 
+                    tabBarActiveTintColor: colors.pink,
+                    tabBarInactiveTintColor: colors.dark,
+                    headerShown: false,
+                    tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
+                }}
+                name="ModalityRoutes" 
+                component={ModalityRoutes} 
+            />
 
             <Tab.Screen options={{
                 tabBarIcon: ({focused, color}) => (
@@ -105,7 +108,7 @@ const TabNavigator = () => {
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Athletic" component={Athletic} />
+            name="Athletic" component={AthleticNotification} />
         </Tab.Navigator>
     );
 }
