@@ -1,3 +1,4 @@
+
 import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
@@ -10,7 +11,6 @@ import { useHeader } from "../../contexts/header"
 import { ModalityStackParamList } from "../../routes/modality.routes"
 import colors from "../../styles/colors"
 import { ChampionshipDetails } from "./components/ChampionshipDetails"
-import { GameDetails } from "./components/GameDetails"
 import { ModalityDetailHeader } from "./components/ModalityDetailHeader"
 import { styles } from "./styles"
 
@@ -55,7 +55,9 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
         isRightSelected ?
         <ChampionshipDetails/>
         :
-        <GameDetails/>
+        <View style={{paddingTop: 200, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>Jogos</Text>
+        </View>
       }
       
     </SafeAreaView>

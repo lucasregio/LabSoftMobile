@@ -1,3 +1,4 @@
+
 import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -60,4 +61,3 @@ export const ModalityDetailHeader: React.FC<ModalityDetailHeaderProps> = ({
     </View>
   )  
 }
-
