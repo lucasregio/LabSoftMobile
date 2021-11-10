@@ -4,10 +4,25 @@ import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import colors from "../../styles/colors"
 import { styles } from "./styles"
-import ModalityCard, { ModalityCardProps } from "./components/ModalityCard";
 import { useNavigation, useNavigationState } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ModalityStackParamList } from "../../routes/modality.routes";
+import { ModalityCard, ModalityCardProps } from "./components/ModalityCard";
+import { useHeader } from "../../contexts/header";
+import { useFocusEffect } from "@react-navigation/native";
 
-const Modalities: React.FC = () =>{
+type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'ModalitiesList'>;
+
+
+const ModalitiesList: React.FC = () =>{
+  const navigation = useNavigation<ModalityListNavigation>()
+  
+  const { setShowHeader } = useHeader()
+
+  useFocusEffect(() => {
+    setShowHeader(true)
+  })
+
   const modalities: ModalityCardProps[] = [
     {
       icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
@@ -37,7 +52,12 @@ const Modalities: React.FC = () =>{
       iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
       nextDate: '12 de Novembro'
     },
-]
+  ]
+
+  const handleOnPress = () => {
+    navigation.navigate('ModalityDetail', {})
+  }
+
   return <View
     style={styles.container}
   >
@@ -79,10 +99,11 @@ const Modalities: React.FC = () =>{
           iconTeam2={iconTeam2}
           title={title}
           nextDate={nextDate}
+          onPress={handleOnPress}
           />
       }}
     />
   </View>
 }
 
-export default Modalities
+export default ModalitiesList
