@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as auth from '../services/auth';
+import api from '../services/api';
 
 interface AuthContextData {
     signed: boolean;
@@ -8,7 +9,7 @@ interface AuthContextData {
     loading: boolean;
     signIn(email: string, password: string): Promise<void>;
     signOut(): void;
-    token?: String;
+    token?: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -24,7 +25,9 @@ export const AuthProvider: React.FC = ({ children }) => {
             const storagedUser = await AsyncStorage.getItem('@user');
             const storagedToken = await AsyncStorage.getItem('@token');
 
-            if( !!storagedUser && !!storagedToken) {
+            if(!!storagedUser && !!storagedToken) {
+                api.defaults.headers.common.Authorization = `Bearer ${storagedToken}`;
+
                 setUser(JSON.parse(storagedUser));
             }
             setLoading(false);
@@ -38,15 +41,15 @@ export const AuthProvider: React.FC = ({ children }) => {
         try {
             const response = await auth.signIn(email, password);
              
-           if(!!response.data.user && !!response.data.token){
+           if(!!response.data.user && !!response.data.token) {
 
-               setUser(response.data.user);
-               setToken(response.data.token);
-               await AsyncStorage.multiSet([
-                   ['@user', JSON.stringify(response.data.user)],
-                   
-                   ['@token', response.data.token]
-               ]);
+                api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
+                setUser(response.data.user);
+                setToken(response.data.token);
+                await AsyncStorage.multiSet([
+                    ['@user', JSON.stringify(response.data.user)],
+                    ['@token', response.data.token]
+                ]);
            }
         //    else{
         //         setUser(null)
@@ -65,6 +68,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     function signOut() {
         AsyncStorage.clear().then(() => {
+            api.defaults.headers.common.Authorization = '';
             setUser(null);
         })
     }
