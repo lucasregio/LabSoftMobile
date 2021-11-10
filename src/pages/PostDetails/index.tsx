@@ -1,91 +1,42 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text, FlatList, SafeAreaView } from 'react-native';
+import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, Image, StyleSheet, Text, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { FeedStackParamList } from '../../routes/feed.routes';
+import * as posts from '../../services/post'
+import { validateImageLink } from '../../validations'
 
 const PostDetails: React.FC = () => {
 
-  const feedNoticias = [
-    {
-        id: 1,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 2,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 3,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 4,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 5,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 6,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 7,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 8,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 9,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: 10,
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },
-]
+    const route = useRoute<RouteProp<FeedStackParamList, 'PostDetails'>>();
+    const [post, setPost] = useState<posts.Postagem | null>(null)
 
-  return (
+    useEffect(() => {
+        posts.get(route.params.id).then((response) => {
+            const date = new Date(response.created_at);
+            response.created_at = date.toDateString()
+            console.log("response");
+            
+            setPost(response);
+        }).catch((error) => {console.log(error);})
+    }, [])
+
+    return (
         <SafeAreaView style={styles.container}>
-          <Image style={styles.imagePost} source={{ uri: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV.jpg' }} />
-          <ScrollView>
-          <View style={styles.viewNot}>
-            <Image style={styles.iconAthletic} source={{ uri: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV.jpg' }} />
-            <View style={styles.textIconAthletic}>
-                <Text>Tubaroes</Text>
-                <Text>01 set 2021</Text>
-            </View>
-          </View>
-          <View style={styles.contentPost}>
-            <Text style={styles.tittlePost}>Premio do time de League Of Legends da uvv - Tubarões, parabéns time!</Text>
-            <Text style={styles.contentDetailsPost}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Text>
-          </View>
-          </ScrollView>
-          
-          
+            <Image style={styles.imagePost} source={validateImageLink(post?.imagem)} />
+            <ScrollView>
+                <View style={styles.viewNot}>
+                    <Image style={styles.iconAthletic} source={validateImageLink(post?.imagem_autor)} />
+                    <View style={styles.textIconAthletic}>
+                        <Text>{post?.nome_autor}</Text>
+                        <Text>{post?.created_at}</Text>
+                    </View>
+                </View>
+                <View style={styles.contentPost}>
+                    <Text style={styles.tittlePost}>{post?.titulo}</Text>
+                    <Text style={styles.contentDetailsPost}>{post?.descricao}</Text>
+                </View>
+            </ScrollView>
         </SafeAreaView>
   );
 }

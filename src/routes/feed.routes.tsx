@@ -5,12 +5,17 @@ import Feed from '../pages/Feed';
 import AthleticProfile from '../pages/AthleticProfile';
 import { HeaderBackButton } from '@react-navigation/elements'
 import { useHeader } from '../contexts/header';
+import PostDetails from '../pages/PostDetails';
+import { useNavigationState } from '@react-navigation/core';
 
 const FeedStack = createStackNavigator<FeedStackParamList>();
 
 export type FeedStackParamList = {
     Feed: undefined;
     AthleticProfile: undefined;
+    PostDetails: {
+        id: string
+    }
 };
 
 const FeedRoutes = () => {
@@ -23,8 +28,7 @@ const FeedRoutes = () => {
                 <HeaderBackButton
                     {...props}
                     onPress={() => {
-                    setShowHeader(true);
-                    navigation.goBack()
+                        navigation.goBack()
                     }}
                 />
             ),
@@ -36,6 +40,7 @@ const FeedRoutes = () => {
         <FeedStack.Navigator initialRouteName="Feed" screenOptions={stackOptions}>
             <FeedStack.Screen name="Feed" component={Feed} options={{headerShown: false}}/>
             <FeedStack.Screen name="AthleticProfile" component={AthleticProfile} options={({navigation}) => buttonBackOptions(navigation)}/>
+            <FeedStack.Screen name="PostDetails" component={PostDetails} options={({navigation}) => buttonBackOptions(navigation)}/>
         </FeedStack.Navigator>
     );
 }
