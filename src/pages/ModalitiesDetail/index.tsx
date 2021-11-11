@@ -4,13 +4,14 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { StatusBar } from "expo-status-bar"
 import React, { useState } from "react"
-import { View, Text, Image } from "react-native"
+import { View, Text, Image, FlatList } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useHeader } from "../../contexts/header"
 import { ModalityStackParamList } from "../../routes/modality.routes"
 import colors from "../../styles/colors"
 import { ChampionshipDetails } from "./components/ChampionshipDetails"
+import { GameDetails } from "./components/GameDetails"
 import { ModalityDetailHeader } from "./components/ModalityDetailHeader"
 import { styles } from "./styles"
 
@@ -55,11 +56,66 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
         isRightSelected ?
         <ChampionshipDetails/>
         :
-        <View style={{paddingTop: 200, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>Jogos</Text>
-        </View>
+        <GameDetails/>
       }
       
     </SafeAreaView>
   )
 }
+
+// const GamesList = () => {
+
+//   const games = [
+//     {
+//       team1: {
+//         name: 'Tubaroes',
+//         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg', 
+//       },
+//       team2: {
+//         name: 'Piratas',
+//         image: 'https://cdn.discordapp.com/attachments/618634415064481802/907777569418539018/14657301_385144591875435_1423023521807662739_n.png', 
+//       },
+//       date: 'Quinta feira - 17:30',
+//       local: 'Ginasio UVV'
+//     },
+//     {
+//       team1: {
+//         name: 'Tubaroes',
+//         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg', 
+//       },
+//       team2: {
+//         name: 'Piratas',
+//         image: 'https://cdn.discordapp.com/attachments/618634415064481802/907777569418539018/14657301_385144591875435_1423023521807662739_n.png', 
+//       },
+//       date: 'Quinta feira - 17:30',
+//       local: 'Ginasio UVV'
+//     },
+//     {
+//       team1: {
+//         name: 'Tubaroes',
+//         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg', 
+//       },
+//       team2: {
+//         name: 'Piratas',
+//         image: 'https://cdn.discordapp.com/attachments/618634415064481802/907777569418539018/14657301_385144591875435_1423023521807662739_n.png', 
+//       },
+//       date: 'Quinta feira - 17:30',
+//       local: 'Ginasio UVV'
+//     },
+//   ]
+  
+//   return (
+//     <View>
+//       <FlatList
+//         data={games}
+//         renderItem={()=>(
+//           <View
+
+//           >
+
+//           </View>
+//         )}
+//       />
+//     </View>
+//   )
+// }
