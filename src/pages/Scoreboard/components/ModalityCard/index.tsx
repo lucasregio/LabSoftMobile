@@ -9,28 +9,38 @@ export interface ModalityCardProps {
   iconTeam1: string,
   iconTeam2: string,
   title: string,
+  nextDate: string
 }
 
 const ModalityCard: React.FC<ModalityCardProps> = ({
   icon,
   iconTeam1,
   iconTeam2,
-  title
+  title,
+  nextDate
 }) => {
   return <View>
     <View style={styles.card}>
       <View style={styles.titleContainer} >
-        <Image style={styles.icon} resizeMode='contain' source={{uri: icon}}  />
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.gameTitle}>
+          <Image style={styles.icon} resizeMode='contain' source={{uri: icon}}  />
+          <Text style={styles.title}>{title}</Text>
+        </View>
         <View style={styles.arrow}>
-        <AntDesign name="right" size={24} color="gray" />
+          <AntDesign name="right" size={24} color="gray" />
         </View>
       </View>
+      <View style={styles.line}>
+      </View>
       <View style={styles.nextGame}>
-      <Image style={styles.iconTeam} resizeMode='contain' source={{uri: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg'}}  />
-      <Text>VS</Text>
-      <Image style={styles.iconTeam} resizeMode='contain' source={{uri: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg'}}  />
-
+        <View style={styles.nextGameIc}>
+          <Image style={styles.iconTeam} resizeMode='contain' source={{uri: iconTeam1}}  />
+          <Text style={{fontWeight:"bold"}}>VS</Text>
+          <Image style={styles.iconTeam} resizeMode='contain' source={{uri: iconTeam2}}  />
+        </View>
+      <Text>
+        Próximo jogo {nextDate}
+      </Text>
       </View>
     </View>
   </View>
