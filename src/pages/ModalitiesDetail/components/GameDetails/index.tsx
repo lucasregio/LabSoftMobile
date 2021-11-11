@@ -44,7 +44,7 @@ export const GameDetails: React.FC<GameDetailsProps> = ({}) => {
     <View
       style={styles.container}
     >
-     <View style={styles.searchBar}>
+    <View style={styles.searchBar}>
                 <FontAwesome5
                 style={styles.iconStyleSearchBar}
                 name="search"
@@ -66,10 +66,12 @@ export const GameDetails: React.FC<GameDetailsProps> = ({}) => {
         data={gameResults}
         showsVerticalScrollIndicator={false}
         renderItem={
-          ({item}) => <GameCard
-            gameOnBottom={item.gameOnBottom}
-            gameOnTop={item.gameOnTop}
-          />
+          ({item}) => <View style={{marginTop: 6}}>
+              <GameCard
+                gameOnBottom={item.gameOnBottom}
+                gameOnTop={item.gameOnTop}
+              />  
+              </View>
         }
         keyExtractor={(item, index) => `${index}`}
       />

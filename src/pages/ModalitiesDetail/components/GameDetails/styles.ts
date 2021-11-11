@@ -5,7 +5,8 @@ import colors from '../../../../styles/colors';
 export const styles = StyleSheet.create({
   container:{
     paddingHorizontal: 10,
-    overflow: 'visible'
+    overflow: 'visible',
+    paddingBottom: 180
   },
   title:{
     fontFamily: 'Nunito_400Regular',
