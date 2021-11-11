@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { View, Image, StyleSheet, Text, FlatList } from 'react-native';
+import Constants from 'expo-constants';
 
 import colors from '../../styles/colors';
 import NewsCard from '../../components/NewsCard';
@@ -8,61 +9,61 @@ const AthleticPerfil: React.FC = () => {
 
   const feedNoticias = [
     {
-        id: 1,
+        id: '1',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 2,
+        id: '2',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 3,
+        id: '3',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 4,
+        id: '4',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 5,
+        id: '5',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 6,
+        id: '6',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 7,
+        id: '7',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 8,
+        id: '8',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 9,
+        id: '9',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
         titlePost: 'Amigos se encontram no bar, que dia louco',
     },{
-        id: 10,
+        id: '10',
         image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
         atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
         atleticaName: 'Tubarões',
@@ -85,7 +86,7 @@ const AthleticPerfil: React.FC = () => {
           <View style={styles.listFeedAtletic}>
             <FlatList
               data={feedNoticias}
-              renderItem={ ({item}) => <NewsCard data={item}/> }
+              renderItem={ ({item}) => <NewsCard id={item.id}/> }
               keyExtractor={(item, index) => index.toString()}
             />
           </View>
@@ -96,6 +97,7 @@ const AthleticPerfil: React.FC = () => {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
+    paddingTop: Constants.statusBarHeight
   },
   viewHeader: {
     alignItems: 'center',
