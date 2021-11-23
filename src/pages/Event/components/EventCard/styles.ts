@@ -7,55 +7,47 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     borderRadius: 15,
-    minHeight: 150
+    minHeight: 200
   },
   titleContainer: {
     flexDirection:'row',
     alignItems: 'center',
-    justifyContent:'space-between',
     flex: 2,
     marginLeft:15,
     marginRight:15
   },
   gameTitle:{
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent:"space-between"
+  },
+  description:{
+    flex:3
   },
   icon:{
-    width: 50,
-    height: 50,
-    borderRadius:15
+    width: 70,
+    height: 70,
+    borderRadius:15,
+    marginHorizontal: 15
   },
   title:{
-    paddingLeft: 16,
     fontSize: 24,
     fontFamily: 'Nunito_400Regular',
     fontWeight: 'bold',
-  },
-  arrow: {
-  },
-  iconTeam: {
-    width: 25,
-    height: 25,
-    borderRadius: 70/2,
-    marginLeft:10,
-    marginRight:10
+    alignSelf:'center'
   },
   line: {
     backgroundColor: '#D3D3D3',
     height: 2,
-    marginBottom: 10,
-    borderRadius: 70/2
+    borderRadius: 70/2,
+    marginVertical:10
   },
-  nextGame: {
-    flex: 1,
-    flexDirection: 'row',
+  eventStart:{
     alignItems: 'center',
-    paddingLeft: 16,
-    justifyContent:'space-between'
+    justifyContent:"center"
   },
-  nextGameIc:{
-    flexDirection: 'row',
-    alignItems: 'center'
+  arrow:{
+    marginHorizontal:5,
+    marginTop:10
   }
 })

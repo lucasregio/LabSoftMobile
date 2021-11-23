@@ -7,7 +7,7 @@ import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from '@expo/vector-
 import Feed from '../pages/Feed';
 import Favorites from '../pages/Favorites';
 import Calendar from '../pages/Calendar';
-import Scoreboard from '../pages/Scoreboard';
+import Events from '../pages/Event';
 import AthleticNotification from '../pages/AthleticNotification';
 import colors from '../styles/colors';
 
@@ -80,13 +80,13 @@ const TabNavigator = () => {
                         />
                     </View>
                 ),
-                title: 'Modalidade', 
+                title: 'Eventos', 
                 tabBarActiveTintColor: colors.pink,
                 tabBarInactiveTintColor: colors.dark,
                 headerShown: false,
                 tabBarLabelStyle: { fontFamily: 'Nunito_400Regular' },
             }}
-            name="Scoreboard" component={Scoreboard} />
+            name="Eventos" component={Events} />
 
             <Tab.Screen options={{
                 tabBarIcon: ({focused, color}) => (
