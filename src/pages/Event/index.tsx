@@ -41,7 +41,7 @@ const Events: React.FC = () =>{
         color="#483BC4"
         size={25}
         />
-        <TextInput style={styles.inputText} placeholder="Pesquise uma modalidade" />
+        <TextInput style={styles.inputText} placeholder="Pesquise um Evento" />
         <TouchableOpacity>
           <FontAwesome5
           style={styles.iconStyleSearchBar}
