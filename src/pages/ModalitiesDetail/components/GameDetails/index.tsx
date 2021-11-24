@@ -45,7 +45,7 @@ export const GameDetails: React.FC<GameDetailsProps> = ({}) => {
               />
           </TouchableOpacity>
         </View>
-
+        <Text style={styles.label}>Próximos Jogos</Text>
         <FlatList
         style={styles.gameList} 
         data={jogos}

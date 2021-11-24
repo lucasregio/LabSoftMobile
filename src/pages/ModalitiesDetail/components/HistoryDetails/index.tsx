@@ -44,23 +44,24 @@ export const HistoryDetails: React.FC<HistoryDetailsProps> = ({}) => {
     <View
       style={styles.container}
     >
-    <View style={styles.searchBar}>
-                <FontAwesome5
-                style={styles.iconStyleSearchBar}
-                name="search"
-                color="#483BC4"
-                size={25}
-                />
-                <TextInput style={styles.inputText} placeholder="Buscar notícias, eventos, atléticas..." />
-                <TouchableOpacity>
-                    <FontAwesome5
-                    style={styles.iconStyleSearchBar}
-                    name="sliders-h"
-                    size={25}
-                    
-                    />
-                </TouchableOpacity>
-            </View> 
+      <View style={styles.searchBar}>
+        <FontAwesome5
+        style={styles.iconStyleSearchBar}
+        name="search"
+        color="#483BC4"
+        size={25}
+        />
+        <TextInput style={styles.inputText} placeholder="Buscar notícias, eventos, atléticas..." />
+        <TouchableOpacity>
+            <FontAwesome5
+            style={styles.iconStyleSearchBar}
+            name="sliders-h"
+            size={25}
+            
+            />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.label}>Histórico de Jogos</Text>
       <FlatList
         style={styles.gameList} 
         data={gameResults}

@@ -34,5 +34,10 @@ export const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 10,
   },
-  
+  label: {
+    paddingHorizontal: 10,
+    fontFamily: 'Nunito_400Regular',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
 })
