@@ -9,8 +9,8 @@ import { styles } from "./styles";
 export interface ModalityDetailHeaderProps {
   onClickArrow: () => void,
   onClickBell: () => void,
-  selected: 'right' | 'left',
-  onClickSwap: (isRightValue: boolean) => void,
+  selected: 'right' | 'middle' | 'left',
+  onClickSwap: (state: 'right' | 'middle' | 'left') => void,
   imageUrl: string,
   modalityName: string
 }
@@ -45,8 +45,9 @@ export const ModalityDetailHeader: React.FC<ModalityDetailHeaderProps> = ({
         </Text>
 
         <SwapButton
-          rightLabel='Resultados'
-          leftLabel='Jogos'
+          leftLabel='Resultados'
+          middleLabel= 'Jogos'
+          rightLabel='Histórico'
           isRightSelected={selected === 'right'}
           onChangeSelected={onClickSwap}
         />
