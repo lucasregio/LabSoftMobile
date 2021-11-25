@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { Text, View, Keyboard, Alert } from "react-native";
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -14,8 +14,11 @@ import { RouteProp } from "@react-navigation/native";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { emailRegex } from "../../validations";
+import { Athletic } from '../../components/AthleticSelectButton';
+import { createUser } from "../../services/userRegister"
 
 type RegisterScreenProp = StackNavigationProp<AuthStackParamList, 'Register'>;
+
 
 const registerSchema = yup.object({
     email: yup.string().matches(emailRegex, 'E-mail inválido. Certifique-se de que o e-mail usa um domínio UVV').required('* Campo obrigatório'),
@@ -38,16 +41,19 @@ const Register: React.FC<RegisterScreenProp> = () => {
     
     const navigation = useNavigation<RegisterScreenProp>();
     const route = useRoute<RouteProp<AuthStackParamList, 'Register'>>();
+    const [selectedAthletic, setSelectedAthletic]= useState<any>();
 
     const formikProps = useFormik({
         initialValues: {email: '', name: '', password: '', confirmPassword: '', athletic: '', course: ''},
         validationSchema: registerSchema,
-        onSubmit: values => handleSubmit(values)
+        onSubmit: values => handleSubmit(values,selectedAthletic)
     })
 
     useEffect(() => {
+        
         if (route.params?.athleticName) {
             formikProps.setFieldValue('athletic', route.params?.athleticName);
+            setSelectedAthletic(route.params?.athleticId)
         }
     }, [route.params?.athleticName])
 
@@ -62,10 +68,10 @@ const Register: React.FC<RegisterScreenProp> = () => {
         confirmPassword: string,
         athletic: string,
         course: string
-    }) {
+    }, id_atlhetic:string) {
         Keyboard.dismiss();
 
-        console.log({values})
+        console.log({values}, " E : ", id_atlhetic)
 
         let {
             email,
@@ -77,7 +83,19 @@ const Register: React.FC<RegisterScreenProp> = () => {
         } = values;
         
         try {
-            await register(email, name, password, athletic, course);
+            //await register(email, name, password, athletic, course);
+            await createUser({
+                email: email,
+                password: password,
+                name: name,
+                userImage: 'sem imagem',
+                instagram: ' ',
+                idAthletic: id_atlhetic,
+                registration: '123456', //matrícula do usuário
+                birthDate: '01/01/2000',
+                idCourse: ' ',
+            });
+            console.log(email, name, password, athletic, course);
             Alert.alert(
                 "Cadastro efetuado",
                 "Cadastro efetuado om sucesso!",
@@ -85,6 +103,8 @@ const Register: React.FC<RegisterScreenProp> = () => {
                   { text: "OK", onPress: handleGoBack }
                 ]
             );
+
+            navigation.navigate('Login');
 
         } catch (e) {
             console.log(e);

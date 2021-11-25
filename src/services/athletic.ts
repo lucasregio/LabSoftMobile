@@ -12,7 +12,8 @@ export async function getAthletics(registerToken?:string): Promise<Athletic[]> {
         res.data.forEach( (element:any) => {
           array.push({
             id: element.id,
-            image: 'http://'+element.logo,
+            //image: 'http://'+element.logo,
+            image: element.logo,
             name: element.nome,
           })
         });
