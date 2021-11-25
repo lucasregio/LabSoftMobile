@@ -93,7 +93,7 @@ const Register: React.FC<RegisterScreenProp> = () => {
                 idAthletic: id_atlhetic,
                 registration: '123456', //matrícula do usuário
                 birthDate: '01/01/2000',
-                idCourse: ' ',
+                idCourse: '1c77f244-5cf1-460f-9487-26afb1cee589',
             });
             console.log(email, name, password, athletic, course);
             Alert.alert(
