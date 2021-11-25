@@ -2,11 +2,19 @@ import React, { useEffect } from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useHeader } from "../../contexts/header";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ModalityStackParamList } from "../../routes/modality.routes";
 import { styles } from "./styles"
 import EventCard,{EventCardProps} from "./components/EventCard";
 import { useFocusEffect, useNavigation, useNavigationState } from "@react-navigation/core";
 
+type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'Events'>;
+
 const Events: React.FC = () =>{
+  const handleOnPress = () => {
+    navigation.navigate('ModalitiesList')
+  }
+  const navigation = useNavigation<ModalityListNavigation>()
   const { setTitle, setShowHeader } = useHeader();
   useFocusEffect(()=>{
     setTitle('Eventos')
@@ -51,8 +59,7 @@ const Events: React.FC = () =>{
           <FontAwesome5
           style={styles.iconStyleSearchBar}
           name="sliders-h"
-          size={25}
-          
+          size={25} 
           />
         </TouchableOpacity>
       </View>
@@ -72,6 +79,7 @@ const Events: React.FC = () =>{
           icon={icon}
           title={title}
           startDate={startDate}
+          onPress={handleOnPress}
           />
       }}
     />

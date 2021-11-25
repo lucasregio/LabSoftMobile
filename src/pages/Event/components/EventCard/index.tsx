@@ -7,16 +7,18 @@ import { AntDesign } from '@expo/vector-icons';
 export interface EventCardProps {
   icon: string,
   title: string,
-  startDate: string
+  startDate: string,
+  onPress?: () => void
 }
 
 const EventCard: React.FC<EventCardProps> = ({
   icon,
   title,
-  startDate
+  startDate,
+  onPress
 }) => {
   return <View>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
     <View style={styles.card}>
       <View style={styles.titleContainer} >
         <View style={styles.gameTitle}>
