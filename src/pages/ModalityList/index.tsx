@@ -15,10 +15,11 @@ type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'Modal
 const ModalitiesList: React.FC = () =>{
   const navigation = useNavigation<ModalityListNavigation>()
   
-  const { setShowHeader } = useHeader()
+  const { setTitle ,setShowHeader } = useHeader()
 
   useFocusEffect(() => {
-    setShowHeader(true)
+    setShowHeader(true),
+    setTitle('Modalidades')
   })
 
   const modalities: ModalityCardProps[] = [
