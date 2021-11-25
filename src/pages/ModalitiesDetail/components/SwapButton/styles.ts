@@ -7,15 +7,14 @@ export const styles = StyleSheet.create({
   container:{
     flexDirection:'row'
   },
-  rightContainer:{
+  leftContainer:{
     borderTopLeftRadius:15, 
     borderBottomLeftRadius:15, 
   },
   space:{
     width: 1
   },
-  
-  leftContainer:{
+  rightContainer:{
     borderTopRightRadius:15, 
     borderBottomRightRadius:15, 
   },
@@ -30,6 +29,8 @@ export const styles = StyleSheet.create({
   },
   selected:{
     backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderColor: colors.primary,
     color: '#fff'
   },
   unselected:{
