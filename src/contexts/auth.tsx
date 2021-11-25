@@ -40,8 +40,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         try {
             const response = await auth.signIn(email, password);
-             
-           if(!!response.data.user && !!response.data.token) {
+            
+            if(!!response.data.user && !!response.data.token) {
 
                 api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
                 setUser(response.data.user);

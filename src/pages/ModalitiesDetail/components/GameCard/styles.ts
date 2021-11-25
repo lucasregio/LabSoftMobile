@@ -30,8 +30,9 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: "bold",
     color: colors.black,
-    paddingHorizontal: 20,
-    marginTop: 10
+    paddingHorizontal: 10,
+    marginTop: 10,
+    width: 40
   },
 
   detailText: {
@@ -49,8 +50,9 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: "bold",
     color: colors.black,
-    marginLeft: 250,
-    marginTop: -15
+    marginLeft: 280,
+    marginTop: -15,
+    alignSelf: 'center'
   },
 
   divider:{

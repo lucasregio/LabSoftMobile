@@ -81,7 +81,7 @@ const TabNavigator = () => {
                         />
                     </View>
                     ),
-                    title: 'Modalidade', 
+                    title: 'Eventos', 
                     tabBarActiveTintColor: colors.pink,
                     tabBarInactiveTintColor: colors.dark,
                     headerShown: false,

@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.offwhiteblue
   },
   headerContainer:{
-    height: 130,
     backgroundColor: colors.white,
   },
   header:{
@@ -47,6 +46,6 @@ export const styles = StyleSheet.create({
   cardsListContainer:{
     paddingTop: 16,
     paddingBottom: 16,
-    paddingHorizontal: 10
+    paddingHorizontal: 13
   }
 })

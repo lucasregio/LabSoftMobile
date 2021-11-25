@@ -12,6 +12,7 @@ import { ModalityStackParamList } from "../../routes/modality.routes"
 import colors from "../../styles/colors"
 import { ChampionshipDetails } from "./components/ChampionshipDetails"
 import { GameDetails } from "./components/GameDetails"
+import { HistoryDetails } from "./components/HistoryDetails"
 import { ModalityDetailHeader } from "./components/ModalityDetailHeader"
 import { styles } from "./styles"
 
@@ -25,6 +26,7 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
   const { setShowHeader } = useHeader()
 
   const [isRightSelected, setIsRightSelected] = useState(true)
+  const [selectedState, setSelectedState] = useState<'left' | 'middle' | 'right'>('left');
 
   const modalityImage = 'https://cdn-icons-png.flaticon.com/512/53/53283.png'
   const modalityName = 'Futebol Masculino'
@@ -49,18 +51,25 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
         modalityName={modalityName}
         onClickArrow={onClickArrow}
         onClickBell={()=>{}}
-        selected={isRightSelected? 'right' : 'left'}
-        onClickSwap={(val) => setIsRightSelected(val)}
+        selected={selectedState}
+        onClickSwap={(val) => setSelectedState(val)}
       />
       {
-        isRightSelected ?
-        <ChampionshipDetails/>
-        :
-        <GameDetails/>
+        PageSwitch(selectedState)
       }
       
     </SafeAreaView>
   )
+}
+
+function PageSwitch(state: any){
+    if (state === 'left') {
+      return (<ChampionshipDetails/>)
+    } else if (state === 'middle') {
+      return (<GameDetails/>)
+    } else {
+      return (<HistoryDetails/>)
+    }
 }
 
 // const GamesList = () => {

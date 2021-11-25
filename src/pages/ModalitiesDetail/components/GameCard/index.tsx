@@ -28,7 +28,7 @@ export const GameCard: React.FC<GameCardProps> = ({gameOnTop, gameOnBottom}) => 
         </Text>
       </View>
       <Text style={styles.scoreText}>
-        VS
+        {gameOnTop.teamLeft.score} : {gameOnTop.teamRight.score}
       </Text>
       <View style={styles.teamContainer}>
         <Image style={styles.image} source={{uri: gameOnTop.teamRight.image, width:25, height: 25 }} />
@@ -39,12 +39,6 @@ export const GameCard: React.FC<GameCardProps> = ({gameOnTop, gameOnBottom}) => 
       <Text style={styles.detailText}>
         Quinta-feira - 17:30
       </Text>
-      
     </View>
-
-    <Text style={styles.detailTextLocal}>
-        Ginásio UVV
-      </Text>
-
   </View>
 )
