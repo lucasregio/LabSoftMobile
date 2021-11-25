@@ -1,8 +1,6 @@
-import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons"
 import React from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
-import colors from "../../styles/colors"
 import { styles } from "./styles"
 import { useNavigation, useNavigationState } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";

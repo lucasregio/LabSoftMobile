@@ -1,8 +1,6 @@
-import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons"
 import React, { useEffect } from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
-import colors from "../../styles/colors"
 import { useHeader } from "../../contexts/header";
 import { styles } from "./styles"
 import EventCard,{EventCardProps} from "./components/EventCard";
@@ -11,7 +9,6 @@ import { useFocusEffect, useNavigation, useNavigationState } from "@react-naviga
 const Events: React.FC = () =>{
   const { setTitle, setShowHeader } = useHeader();
   useFocusEffect(()=>{
-    setShowHeader(true);
     setTitle('Eventos')
   });
 
