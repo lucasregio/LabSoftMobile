@@ -28,7 +28,7 @@ export async function createUser(user: userData): Promise<any> {
             foto: user.userImage,
             instagram: user.instagram,
             id_atletica: user.idAthletic,
-            matricula: "123456789", //matrícula do usuário
+            matricula: ''+Math.ceil(Math.random() * (999999999 - 299999999) + 299999999), //matrícula do usuário
             data_nascimento:  "04/04/2000",
             id_curso:"1c77f244-5cf1-460f-9487-26afb1cee589" // curso ciência da computacao
         })
