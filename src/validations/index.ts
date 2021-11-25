@@ -2,11 +2,11 @@ export const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_
 
 export function isValidImageLink(link: string) : boolean {
 
-    if (link == null || link == undefined) {
+    if (!link) {
         return false;
     }
 
-    if (link.endsWith('.png' || '.jpg') && link.startsWith('http://' || 'https://')){
+    if (['.png', '.jpg'].some(x => link.endsWith(x)) && ['http://', 'https://'].some(x => link.startsWith(x))){
         return true;
     } else {
         return false
@@ -15,11 +15,11 @@ export function isValidImageLink(link: string) : boolean {
 
 export function validateImageLink(link: string | null | undefined) : object {
 
-    if (link == null || link == undefined) {
+    if (!link) {
         return require('../../assets/icon.png')
     }
-
-    if (link.endsWith('.png' || '.jpg') && link.startsWith('http://' || 'https://')){
+    
+    if (['.png', '.jpg'].some(x => link.endsWith(x)) && ['http://', 'https://'].some(x => link.startsWith(x))){
         return { uri: link }
     } else {
         return require('../../assets/icon.png')
