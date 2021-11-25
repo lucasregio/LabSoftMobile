@@ -12,7 +12,7 @@ const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 const { StatusBarManager } = NativeModules;
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
+const STATUSBAR_HEIGHT = Platform.OS === 'android' ? StatusBarManager.HEIGHT : 20 ;
 
 const Partners: React.FC = () =>{
   const [isVisible, setIsVisible] = useState(false);
