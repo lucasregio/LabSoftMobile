@@ -9,12 +9,14 @@ import Athletic, { AthleticScreenProp } from '../pages/Athletic';
 import RegisterSelectAthletic from '../pages/Register/RegisterSelectAthletic';
 import { ModalityDetail, ModalityDetailProps } from '../pages/ModalitiesDetail';
 import ModalitiesList from '../pages/ModalityList';
+import Events from '../pages/Event';
 import { useHeader } from '../contexts/header';
 import { useFocusEffect } from '@react-navigation/core';
 
 const ModalityStack = createStackNavigator<ModalityStackParamList>();
 
 export type ModalityStackParamList = {
+    Events:undefined
     ModalitiesList: undefined
     ModalityDetail: ModalityDetailProps
 };
@@ -30,7 +32,8 @@ const ModalityRoutes = () => {
 
 
   return (
-    <ModalityStack.Navigator initialRouteName="ModalitiesList" screenOptions={stackOptions}>
+    <ModalityStack.Navigator initialRouteName="Events" screenOptions={stackOptions}>
+      <ModalityStack.Screen name="Events" component={Events} options={{headerMode: 'screen'}} />
       <ModalityStack.Screen name="ModalitiesList" component={ModalitiesList} options={{headerMode: 'screen'}} />
       <ModalityStack.Screen name="ModalityDetail" component={ModalityDetail} options={{headerMode: 'screen'}} />
     </ModalityStack.Navigator>
