@@ -95,10 +95,10 @@ const Register: React.FC<RegisterScreenProp> = () => {
                 birthDate: '01/01/2000',
                 idCourse: '1c77f244-5cf1-460f-9487-26afb1cee589',
             });
-            console.log(email, name, password, athletic, course);
+            console.log("Dados usuario: ",email, name, password, athletic, course);
             Alert.alert(
                 "Cadastro efetuado",
-                "Cadastro efetuado om sucesso!",
+                "Cadastro efetuado com sucesso!",
                 [
                   { text: "OK", onPress: handleGoBack }
                 ]
@@ -106,8 +106,15 @@ const Register: React.FC<RegisterScreenProp> = () => {
 
             navigation.navigate('Login');
 
-        } catch (e) {
-            console.log(e);
+        } catch ({message, status}) {
+            console.log("Erro: "+message+" "+status);
+            Alert.alert(
+                "Erro durante o cadastro",
+                ''+message,
+                [
+                    { text: "OK", onPress: handleGoBack }
+                ]
+            );
         }
     }
 

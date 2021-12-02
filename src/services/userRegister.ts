@@ -35,15 +35,38 @@ export async function createUser(user: userData): Promise<any> {
         .then((res) => {
             return res
         })
-        .catch((err) => { 
+        .catch((error) => { 
 
-            // return {
-            //     data: {
-            //         error: "Invalid Email and/or password.",
-            //     },
-            //     status: 401,
-            // }
-            //throw new Error(" Invalid Email and/or password.");
+            // Error 😨
+            if (error.response) {
+                /*
+                * The request was made and the server responded with a
+                * status code that falls out of the range of 2xx
+                */
+                console.log("Entrou no Erro do Response")
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                /*
+                * The request was made but no response was received, `error.request`
+                * is an instance of XMLHttpRequest in the browser and an instance
+                * of http.ClientRequest in Node.js
+                */
+                console.log("Entrou no Erro do request")
+                console.log(error.request);
+            } else {
+                console.log("Entrou no último Erro")
+                // Something happened in setting up the request and triggered an Error
+                console.log('Error', error.message);
+            }
+
+            //console.log(error);
+            //console.log("Deu erro!");
+            //console.log(err.response)
+            //console.log("O body do error: ", error.response.data)
+
+            throw new Error("\n Message: "+error.response.data.message+"\n Status: "+error.response.data.status);
             
         })
     //console.log("resultado: ",result);
