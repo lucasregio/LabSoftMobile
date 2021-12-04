@@ -7,8 +7,8 @@ export default interface Jogo {
     time2: Atletica,
     data_jogo: string,
     hora_jogo: string,
-    placar1: 0,
-    placar2: 0,
+    placar1: number,
+    placar2: number,
     local: string,
     id_fase: string,
     id_campeonato: string
