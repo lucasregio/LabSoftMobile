@@ -1,16 +1,16 @@
-import api from "../services/api"
+import api from "./api"
 
 interface Response {
     data: object,
     status: number
 }
 
-export async function forgotPassword(email: string): Promise<Response> {
+export async function resetPassword(codigo: string,password:string ): Promise<Response> {
 
-  
     const result = await api
-        .post("/auth/forgot_password",{
-            email: email,
+        .post("/auth/reset_password",{
+            codigo: codigo,
+            senha: password
         })
         .then((res) => {
             return res
@@ -41,8 +41,16 @@ export async function forgotPassword(email: string): Promise<Response> {
                 console.log('Error', error.message);
             }
 
+            //console.log(error);
+            //console.log("Deu erro!");
+            //console.log(err.response)
+            //console.log("O body do error: ", error.response.data)
+
             throw new Error("\n Message: "+error.response.data.message+"\n Status: "+error.response.data.status);
             
         })
+    //console.log("resultado: ",result);
     return result;
 }
+
+  

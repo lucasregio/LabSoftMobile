@@ -18,10 +18,6 @@ const ForgotPassword: React.FC = () => {
 
     const navigation = useNavigation<ForgotPasswordScreenProp>();
 
-    function handleGoBack() {
-        navigation.goBack();
-    }
-
     async function handleForgotPassword() {
         setForgotPasswordError(false)
         Keyboard.dismiss();
@@ -33,9 +29,12 @@ const ForgotPassword: React.FC = () => {
         }
         
         try {
+
             await forgotPassword(email);
             console.log('Email de recuperação enviado.');
-            handleGoBack();
+            navigation.navigate('ResetPassword');
+
+            // handleGoBack();
         } catch(e) {
             setErrorMessage('Usuário não foi encontrado');
             setForgotPasswordError(true)
