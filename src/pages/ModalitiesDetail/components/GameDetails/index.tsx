@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Image, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import colors from "../../../../styles/colors";
 import { styles } from "./styles";
 import { FontAwesome5 } from '@expo/vector-icons';
 import {Card, CardProps} from "./Card";
+import * as modality from '../../../../services/modalityDetails';
+import Jogo from "../../../../services/interfaces/Jogo";
 
 export interface GameDetailsProps {
 
@@ -12,19 +14,18 @@ export interface GameDetailsProps {
 
 export const GameDetails: React.FC<GameDetailsProps> = ({}) => {
 
-  const jogos: CardProps[] = 
-    new Array<CardProps>(10).fill({
-      leftTeam: {
-        icone: "http://178.238.233.159:5555/public/images/atleticas/82672f77-a713-46fa-8a55-640f8ff08522.jpg",
-        nome: "Tubarões"
-      },
-      rightTeam: {
-        icone: "http://178.238.233.159:5555/public/images/atleticas/b0c6e430-3a7f-4ff6-a4dd-28094e166895.jpg",
-        nome: "Piratas"
-      },
-      data: "Quinta feira - 17:30"
-    })
-  ;
+  const [jogos, setJogos] = useState<Jogo[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // TODO: Remover o ID statico do campeonato e colocar o ID do campeonato dado pela rota.
+      const data = await modality.getAllJogosEmAndamento('fc5533ee-a86d-466a-b593-79dc9e3f6e8c');
+      
+      setJogos(data);
+    }
+
+    fetchData();
+  }, [])
   
   return (
     <ScrollView>
@@ -53,15 +54,16 @@ export const GameDetails: React.FC<GameDetailsProps> = ({}) => {
         renderItem={
           ({item}) => <View style={{marginTop: 6}}>
               <Card
-                  data={item.data}
-                  leftTeam={item.leftTeam}
-                  rightTeam={item.rightTeam}
+                  data={item.data_jogo}
+                  leftTeam={item.time1}
+                  rightTeam={item.time2}
+                  local={item.local}
+                  horario={item.hora_jogo}
               />  
               </View>
         }
         keyExtractor={(item, index) => `${index}`}
       />
-
       </View>
     </ScrollView>
   )
