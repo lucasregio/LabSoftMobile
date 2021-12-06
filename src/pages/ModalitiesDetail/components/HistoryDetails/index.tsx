@@ -16,14 +16,17 @@ export const HistoryDetails: React.FC<HistoryDetailsProps> = ({}) => {
   const [jogos, setJogos] = useState<Jogo[]>();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       // TODO: Remover o ID statico do campeonato e colocar o ID do campeonato dado pela rota.
       let data = await modality.getAllJogosFinalizados('fc5533ee-a86d-466a-b593-79dc9e3f6e8c');
 
-      setJogos(data);
+      if (isMounted) setJogos(data);
     }
 
     fetchData();
+
+    return () => { isMounted = false };
   }, [])
 
   return <ScrollView
