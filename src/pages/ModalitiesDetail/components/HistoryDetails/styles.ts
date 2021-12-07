@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: 12
   },
   gameList:{
-    paddingTop: 16,
+    paddingTop: 5,
     paddingBottom: 16,
     paddingHorizontal: 10,
   },

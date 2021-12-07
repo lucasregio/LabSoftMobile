@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10
   },
   gameList:{
-    paddingTop: 16,
+    paddingTop: 5,
     paddingBottom: 16,
     paddingHorizontal: 10,
   },
