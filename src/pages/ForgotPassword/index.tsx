@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from '@react-navigation/core';
-import { Text, View, Keyboard } from "react-native";
+import { Text, View, Keyboard,Alert } from "react-native";
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
@@ -18,6 +18,9 @@ const ForgotPassword: React.FC = () => {
 
     const navigation = useNavigation<ForgotPasswordScreenProp>();
 
+    function handleGoBack() {
+        navigation.goBack();
+    }
     async function handleForgotPassword() {
         setForgotPasswordError(false)
         Keyboard.dismiss();
@@ -32,7 +35,17 @@ const ForgotPassword: React.FC = () => {
 
             await forgotPassword(email);
             console.log('Email de recuperação enviado.');
-            navigation.navigate('ResetPassword');
+
+            Alert.alert(
+                "Sucesso",
+                "Email de recuperação enviado!",
+                [
+                  { text: "OK", onPress: handleGoBack }
+                ]
+            );
+            navigation.navigate('Login');
+
+
 
             // handleGoBack();
         } catch(e) {
