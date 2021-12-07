@@ -26,7 +26,7 @@ const AthleticList: React.FC<AthleticListProps> = ({pageTitle, onSelectItem, sel
             <AthleticSelectButton 
                 // {...console.log("athletic : ", athletic.id)}
                 // {...console.log("athletic selecionada : ", selectedAthleticId)}
-                isSelected={selectedAthleticId === athletic.id}
+                isSelected={selectedAthleticId == athletic.id}
                 athletic={athletic}
                 onSelect={onSelectItem}
             /> 
