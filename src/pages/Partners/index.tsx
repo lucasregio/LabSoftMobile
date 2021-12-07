@@ -1,118 +1,41 @@
-import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons"
-import React, { useState } from "react"
-import { Text,  TextInput, TouchableOpacity, View, FlatList, Image, Dimensions, Modal, TouchableWithoutFeedback, Platform, NativeModules } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
-import colors from "../../styles/colors"
-import { styles } from "./styles"
-import PartnerCard, { PartnerCardProps } from "./components/PartnerCard";
-import { useNavigation, useNavigationState } from "@react-navigation/core";
-import { StatusBar } from "expo-status-bar";
+import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons";
+import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import React, { useCallback, useState } from "react";
+import { Button, Dimensions, FlatList, Image, Modal, NativeModules, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { getPartners } from "../../services/partners";
+import colors from "../../styles/colors";
+import { PartnerCardProps } from "./components/PartnerCard";
+import { styles } from "./styles";
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 const { StatusBarManager } = NativeModules;
 
-const STATUSBAR_HEIGHT = Platform.OS === 'android' ? StatusBarManager.HEIGHT : 20 ;
+const STATUSBAR_HEIGHT = Platform.OS === 'android' ? StatusBarManager.HEIGHT : 20 ; 
 
 const Partners: React.FC = () =>{
   const [isVisible, setIsVisible] = useState(false);
   const [partner, setPartner] = useState<PartnerCardProps>();
   const navigation = useNavigation()
-  const partners: PartnerCardProps[] = [
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212218173177896/unknown.png',
-      title: 'Skt Mafia',
-      description: 'Compre produtos de Skt.Mafia por internet. Temos feminino, camisetas e mais. Faça seu pedido, pague-o online e receba onde quiser.',
-      discountPercent: 40
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      title: 'Wizard',
-      description:'A Wizard tem o curso de inglês certo para você aprender o idioma e para todas as idades!',
-      discountPercent: 43
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212965686239262/unknown.png',
-      title: 'Icone',
-      description:'A Icone Sports é uma empresa especializada na fabricação e comercialização de materiais esportivos personalizados.',
-      discountPercent: 15
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902717008708263957/1a2fd0768e74dcb907f04676f1324f54.png',
-      title: 'Universidade Paralela',
-      description: 'A Universidade Paralela é uma empresa de confecção que produz diversos produtos personalizados para todos aqueles que tem interesse em tirar sua ideia do papel e produzir com qualidade.',
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212218173177896/unknown.png',
-      title: 'Skt Mafia',
-      description: 'Compre produtos de Skt.Mafia por internet. Temos feminino, camisetas e mais. Faça seu pedido, pague-o online e receba onde quiser.',
-      discountPercent: 40
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      title: 'Wizard',
-      description:'A Wizard tem o curso de inglês certo para você aprender o idioma e para todas as idades!',
-      discountPercent: 43
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212965686239262/unknown.png',
-      title: 'Icone',
-      description:'A Icone Sports é uma empresa especializada na fabricação e comercialização de materiais esportivos personalizados.',
-      discountPercent: 15
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902717008708263957/1a2fd0768e74dcb907f04676f1324f54.png',
-      title: 'Universidade Paralela',
-      description: 'A Universidade Paralela é uma empresa de confecção que produz diversos produtos personalizados para todos aqueles que tem interesse em tirar sua ideia do papel e produzir com qualidade.',
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212218173177896/unknown.png',
-      title: 'Skt Mafia',
-      description: 'Compre produtos de Skt.Mafia por internet. Temos feminino, camisetas e mais. Faça seu pedido, pague-o online e receba onde quiser.',
-      discountPercent: 40
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      title: 'Wizard',
-      description:'A Wizard tem o curso de inglês certo para você aprender o idioma e para todas as idades!',
-      discountPercent: 43
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212965686239262/unknown.png',
-      title: 'Icone',
-      description:'A Icone Sports é uma empresa especializada na fabricação e comercialização de materiais esportivos personalizados.',
-      discountPercent: 15
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902717008708263957/1a2fd0768e74dcb907f04676f1324f54.png',
-      title: 'Universidade Paralela',
-      description: 'A Universidade Paralela é uma empresa de confecção que produz diversos produtos personalizados para todos aqueles que tem interesse em tirar sua ideia do papel e produzir com qualidade.',
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212218173177896/unknown.png',
-      title: 'Skt Mafia',
-      description: 'Compre produtos de Skt.Mafia por internet. Temos feminino, camisetas e mais. Faça seu pedido, pague-o online e receba onde quiser.',
-      discountPercent: 40
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902716682198454272/573260c3e8104dee2d2e2d7cce813dac.png',
-      title: 'Wizard',
-      description:'A Wizard tem o curso de inglês certo para você aprender o idioma e para todas as idades!',
-      discountPercent: 43
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488490557320986636/913212965686239262/unknown.png',
-      title: 'Icone',
-      description:'A Icone Sports é uma empresa especializada na fabricação e comercialização de materiais esportivos personalizados.',
-      discountPercent: 15
-    },
-    {
-      icon: 'https://cdn.discordapp.com/attachments/488087473348542486/902717008708263957/1a2fd0768e74dcb907f04676f1324f54.png',
-      title: 'Universidade Paralela',
-      description: 'A Universidade Paralela é uma empresa de confecção que produz diversos produtos personalizados para todos aqueles que tem interesse em tirar sua ideia do papel e produzir com qualidade.',
-    },
-]
+  
+const [selected, setSelected] = useState<string>()
+const [listaAtletica, setListaParceiros] = useState<PartnerCardProps[]>([]);
+useFocusEffect(
+  useCallback(
+      () => {
+      try{
 
+          const response = getPartners();
+          response.then((res)=>{
+              setListaParceiros(res);
+          })
+      }catch{
+          throw new Error("Não foi possível carregar os Parceiros");
+      }
+},[selected])
+);
+const partners: PartnerCardProps[] = []
   const handleSelectPartner = (partner: PartnerCardProps) => { 
     setPartner(partner);
     setIsVisible(true);
@@ -167,7 +90,7 @@ const Partners: React.FC = () =>{
     }
     <FlatList
       style={styles.cardsListContainer}
-      data={partners}
+      data={listaAtletica}
       contentContainerStyle={{paddingBottom: 26}}
       columnWrapperStyle={{justifyContent: 'space-between', marginBottom: 20}}
       numColumns={2}
@@ -196,6 +119,7 @@ const Partners: React.FC = () =>{
           </TouchableOpacity>
       }}
     />
+    <Button title="Teste" onPress={() =>{getPartners()}}/>
   </View>
 }
 
