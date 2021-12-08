@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons";
 import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import React, { useCallback, useState } from "react";
-import { Button, Dimensions, FlatList, Image, Modal, NativeModules, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Dimensions, FlatList, Image, Modal, NativeModules, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { getPartners } from "../../services/partners";
 import colors from "../../styles/colors";
 import { PartnerCardProps } from "./components/PartnerCard";
@@ -119,7 +119,7 @@ const partners: PartnerCardProps[] = []
           </TouchableOpacity>
       }}
     />
-    <Button title="Teste" onPress={() =>{getPartners()}}/>
+    {/* <Button title="Teste" onPress={() =>{getPartners()}}/> */}
   </View>
 }
 
