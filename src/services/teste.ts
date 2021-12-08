@@ -6,5 +6,5 @@ export const testeAxios = async (email: string, password: string) => {
          email: email,
          senha: password
      });
-    console.log(result)
+    console.log("teste",result)
 }; 
