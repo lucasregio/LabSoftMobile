@@ -45,3 +45,25 @@ export async function signIn(email: string, password: string): Promise<Response>
     console.log("resultado: ",result.status);
     return result;
 }
+
+export async function changeAthletic(idUser: string, idAthletic: string): Promise<Response> {
+    const result = await api
+        .put(`/usuarios/${idUser}`, {
+            id_atletica: idAthletic,
+        })
+        .then((res) => {
+            return res;
+        }
+    )
+    return result;
+}
+
+export async function getUser(idUser: string): Promise<Response> {
+    const result = await api
+        .get(`/usuarios/${idUser}`)
+        .then((res) => {
+            return res;
+        }
+    )
+    return result;
+}
