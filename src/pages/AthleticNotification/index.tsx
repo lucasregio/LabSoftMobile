@@ -1,19 +1,60 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Athletic } from '../../components/AthleticSelectButton';
 import colors from '../../styles/colors';
 import AthleticList from '../../components/ListAthletic';
 import { getAthletics } from '../../services/athletic';
 import { useFocusEffect } from '@react-navigation/core';
+import { useAuth } from '../../contexts/auth';
+import { changeAthletic, getUser} from '../../services/auth';
 
 const AthleticNotification: React.FC = () => {
     const [selected, setSelected] = useState<string>()
     const [listaAtletica, setListaAtletica] = useState<Athletic[]>([]);
+    const { user } = useAuth()
+
+    const handleSelectAthletic = async () => {
+        if(!!user && !!selected){
+            const response = await changeAthletic(user.id, selected)
+            console.log('response', response)
+            console.log('user', user.id)
+            setSelected(selected)
+        }
+    }
+    
+    useEffect(() => {
+        console.log('selected', selected)
+    }, [selected])
+    
+    useFocusEffect(
+        useCallback(
+            () => {
+                try{
+                
+                getUser(user.id).then(res => {
+                    console.log('res', res)
+                    const {id_atletica: IdAthletic} = res.data as any
+                    console.log('id_atletica', IdAthletic)
+                    setSelected(IdAthletic)
+                }) 
+            }catch{
+                throw new Error("Não foi possível carregar as tléticas");
+            }
+        },[])
+    );
+    
 
     useFocusEffect(
         useCallback(
             () => {
-            try{
+                try{
+                
+                // getUser(user.id).then(res => {
+                //     console.log('res', res)
+                //     const {id_atletica: IdAthletic} = res.data as any
+                //     console.log('id_atletica', IdAthletic)
+                //     setSelected(IdAthletic)
+                // }) 
 
                 const response = getAthletics();
                 response.then((res)=>{
@@ -22,7 +63,7 @@ const AthleticNotification: React.FC = () => {
             }catch{
                 throw new Error("Não foi possível carregar as tléticas");
             }
-      },[selected])
+        },[selected])
     );
     
 
@@ -31,11 +72,17 @@ const AthleticNotification: React.FC = () => {
             <AthleticList 
                 pageTitle={'Altere sua atlética'}
                 selectedAthleticId={selected} 
-                onSelectItem={({id})=> setSelected(id)}
+                onSelectItem={({id})=> {
+                    console.log('id', id)
+                    setSelected(id)
+                }}
                 list = {listaAtletica} 
                 />
             <View style={styles.viewStyleButton}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    onPress={handleSelectAthletic}
+                    style={styles.button}
+                >
                     <Text style={styles.buttonText}>Selecionar</Text>
                 </TouchableOpacity>
             </View>

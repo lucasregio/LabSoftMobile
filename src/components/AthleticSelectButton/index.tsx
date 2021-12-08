@@ -20,7 +20,10 @@ const AthleticSelectButton: React.FC<AthleticSelectButtonProps> = ({athletic, is
     <View style={styles.container}>
         <TouchableOpacity
             style={{justifyContent:'center', alignItems: 'center'}}
-            onPress={() => onSelect && onSelect(athletic)}
+            onPress={() => {
+                console.log('onSelect', athletic)
+                onSelect && onSelect(athletic)
+            }}
             >
             {isSelected && <View style={styles.selected}/>}
             <Image 
