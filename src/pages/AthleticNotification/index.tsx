@@ -26,6 +26,16 @@ const AthleticNotification: React.FC = () => {
         console.log('selected', selected)
     }, [selected])
     
+    
+    useEffect(() => {
+        getUser(user.id).then(res => {
+            console.log('res', res)
+            const {id_atletica: IdAthletic} = res.data as any
+            console.log('id_atletica', IdAthletic)
+            setSelected(IdAthletic)
+        }) 
+    }, [])
+    
     useFocusEffect(
         useCallback(
             () => {
