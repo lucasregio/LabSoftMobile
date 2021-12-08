@@ -6,7 +6,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ModalityStackParamList } from "../../routes/modality.routes";
 import { styles } from "./styles"
 import EventCard,{EventCardProps} from "./components/EventCard";
-import {getChampions} from "../../services/championship";
 import {getAllEventos} from "../../services/event";
 import { useFocusEffect, useNavigation, useNavigationState } from "@react-navigation/core";
 import Evento from "../../services/interfaces/Evento";
@@ -16,9 +15,9 @@ type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'Event
 const Events: React.FC = () =>{
 
   const [eventos, setEventos] = useState<Evento[]>();
-  const handleOnPress = async () => {
+  const handleOnPress = (idEvento:String) => {
    
-    navigation.navigate('ModalitiesList')
+    navigation.navigate('ModalitiesList',{idEvento});
   }
   const navigation = useNavigation<ModalityListNavigation>()
   const { setTitle, setShowHeader } = useHeader();
@@ -105,7 +104,7 @@ const Events: React.FC = () =>{
           title={nome}
           id ={id}
           //startDate={startDate}
-          onPress={handleOnPress}
+          onPress={() => {handleOnPress(id)}}
           />
       }}
     />

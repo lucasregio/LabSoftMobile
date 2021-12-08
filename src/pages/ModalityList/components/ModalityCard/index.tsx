@@ -16,6 +16,7 @@ export interface ModalityCardProps {
   iconTeam2: string,
   title: string,
   nextDate: string,
+  idCampeonato?: string, 
   onPress?: () => void
 }
 

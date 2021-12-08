@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect,useState} from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { styles } from "./styles"
@@ -7,15 +7,36 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ModalityStackParamList } from "../../routes/modality.routes";
 import { ModalityCard, ModalityCardProps } from "./components/ModalityCard";
 import { useHeader } from "../../contexts/header";
+import {getChampionsByEvent} from "../../services/championshipByEvent"
 import { useFocusEffect } from "@react-navigation/native";
 
 type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'ModalitiesList'>;
 
+export interface ModalitiesListProps{
+  idEvento?: String
+}
 
-const ModalitiesList: React.FC = () =>{
+const ModalitiesList: React.FC<any> = ({...props}) =>{
+  const [chanpions, setChanpions] = useState<ModalityCardProps[]>();
   const navigation = useNavigation<ModalityListNavigation>()
-  
-  const { setTitle ,setShowHeader } = useHeader()
+  console.log("Teste43 ",props);
+  const {params: {idEvento} } = props.route;
+  const { setTitle ,setShowHeader } = useHeader();
+
+  useEffect(() => {
+    //getChampions();
+    let isMounted = true;
+
+    const fetchData = async() => {
+      
+      console.log("teste 63: ", idEvento);
+      let data = await getChampionsByEvent(idEvento);
+      //let dataJogos =  
+      if (isMounted) setChanpions(data);
+    }
+    fetchData();
+    return () => { isMounted = false };
+  }, [])
 
   useFocusEffect(() => {
     setShowHeader(true),
@@ -81,7 +102,8 @@ const ModalitiesList: React.FC = () =>{
     </View>
     <FlatList
       style={styles.cardsListContainer}
-      data={modalities}
+      //data={modalities}
+      data = {chanpions}
       renderItem={({item: partner})=>{
         
         const {
