@@ -1,44 +1,45 @@
-import React from 'react';
+import { useFocusEffect } from '@react-navigation/core';
+import React, { useEffect } from 'react';
 import { Image, View, Text } from 'react-native';
 import { StyleSheet } from "react-native";
+import Atletica from '../../../../../services/interfaces/Atletica';
 import colors from '../../../../../styles/colors';
 import { validateImageLink } from '../../../../../validations';
 
 // import { Container } from './styles';
 
 export interface CardProps {
-    leftTeam: {
-        icone: string
-        nome: string
-    },
-        rightTeam: {
-        icone: string
-        nome: string
-    },
-    data: string
+    leftTeam: Atletica,
+    rightTeam: Atletica,
+    data: string,
+    local: string,
+    horario: string
 }
 
 export const Card: React.FC<CardProps> = ({
     leftTeam,
     rightTeam,
-    data
+    data,
+    local,
+    horario
 }) => {
     return (
         <View style={styles.container}>
             <View style={styles.teamContainer}>
-                <Image style={styles.image} source={{uri: leftTeam.icone}} />
+                <Image style={styles.image} source={validateImageLink(leftTeam.logo)} />
                 <Text style={styles.teamText}>{leftTeam.nome}</Text>
             </View>
             
             <View style={styles.middleContainer}>
-                <Text style={styles.dataText}>{data}</Text>
+                <Text style={styles.dataText}>{data} - {horario}</Text>
+                <Text style={styles.localText}>{local}</Text>
                 <Text style={{fontSize: 18, fontWeight: 'bold', fontFamily: 'Nunito_400Regular'}}>VS</Text>
+                <Text> </Text>
                 <Text> </Text>
             </View>
             
-            
             <View style={styles.teamContainer}>
-                <Image style={styles.image} source={validateImageLink(rightTeam.icone)} />
+                <Image style={styles.image} source={validateImageLink(rightTeam.logo)} />
                 <Text style={styles.teamText}>{rightTeam.nome}</Text>
             </View>
         </View>
@@ -80,6 +81,12 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Nunito_400Regular',
         fontWeight: 'bold',
+        fontSize: 10,
+        alignSelf: 'center'
+    },
+    localText: {
+        textAlign: 'center',
+        fontFamily: 'Nunito_400Regular',
         fontSize: 10,
         alignSelf: 'center'
     },

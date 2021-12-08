@@ -1,10 +1,11 @@
-import React from "react";
-import { FlatList, Image, Text, View, TouchableOpacity, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import colors from "../../../../styles/colors";
-import { GameCard, GameCardProps } from "../GameCard";
+import { Card } from "./Card";
 import { styles } from "./styles";
 import { FontAwesome5 } from '@expo/vector-icons';
+import Jogo from "../../../../services/interfaces/Jogo";
+import * as modality from '../../../../services/modalityDetails';
 
 export interface HistoryDetailsProps {
 
@@ -12,32 +13,21 @@ export interface HistoryDetailsProps {
 
 export const HistoryDetails: React.FC<HistoryDetailsProps> = ({}) => {
 
-  const gameResults: GameCardProps[] = new Array<GameCardProps>(10).fill({
-    gameOnBottom:{
-      teamLeft:{
-        image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV.jpg',
-        name: 'Tubaroes',
-        score: 3
-      },
-      teamRight:{
-        image: 'https://cdn.discordapp.com/attachments/618634415064481802/907777569418539018/14657301_385144591875435_1423023521807662739_n.png',
-        name: 'Raposas',
-        score: 0
-      }
-    },
-    gameOnTop:{
-      teamLeft:{
-        image: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV.jpg',
-        name: 'Tubaroes',
-        score: 3
-      },
-      teamRight:{
-        image: 'https://cdn.discordapp.com/attachments/618634415064481802/907777569418539018/14657301_385144591875435_1423023521807662739_n.png',
-        name: 'Raposas',
-        score: 0
-      }
+  const [jogos, setJogos] = useState<Jogo[]>();
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async () => {
+      // TODO: Remover o ID statico do campeonato e colocar o ID do campeonato dado pela rota.
+      let data = await modality.getAllJogosFinalizados('fc5533ee-a86d-466a-b593-79dc9e3f6e8c');
+
+      if (isMounted) setJogos(data);
     }
-  })  
+
+    fetchData();
+
+    return () => { isMounted = false };
+  }, [])
 
   return <ScrollView
   >
@@ -64,13 +54,12 @@ export const HistoryDetails: React.FC<HistoryDetailsProps> = ({}) => {
       <Text style={styles.label}>Histórico de Jogos</Text>
       <FlatList
         style={styles.gameList} 
-        data={gameResults}
+        data={jogos}
         showsVerticalScrollIndicator={false}
         renderItem={
           ({item}) => <View style={{marginTop: 6}}>
-              <GameCard
-                gameOnBottom={item.gameOnBottom}
-                gameOnTop={item.gameOnTop}
+              <Card
+                jogo={item}
               />  
               </View>
         }
