@@ -60,7 +60,7 @@ export async function getAllJogosEmAndamento(idCampeonato: string): Promise<Jogo
     return jogos;
 }
 
-function ordenarJogosPorData(a: Jogo, b: Jogo, ordem: 'asc' | 'desc') {
+export function ordenarJogosPorData(a: Jogo, b: Jogo, ordem: 'asc' | 'desc') {
     const dataA = a.data_jogo.split('/').map(x => parseInt(x));
     const horaA = a.hora_jogo.split(':').map(x => parseInt(x));
 

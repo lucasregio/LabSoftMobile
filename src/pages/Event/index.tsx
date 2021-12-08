@@ -32,7 +32,6 @@ const Events: React.FC = () =>{
     let isMounted = true;
     const fetchData = async() => {
       
-      console.log("Rafael aki!!!");
       let data = await getAllEventos()
       
       if (isMounted) setEventos(data);

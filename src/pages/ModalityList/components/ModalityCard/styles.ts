@@ -49,6 +49,6 @@ export const styles = StyleSheet.create({
     paddingLeft: 16
   },
   nextDate:{
-    marginLeft:'75%'
+    marginLeft:'20%'
   }
 })

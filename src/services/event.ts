@@ -11,8 +11,6 @@ export async function getAllEventos() {
                 response.data;
             }) */
         eventos = result.data;
-        console.log("Aki!: ");
-        console.log(eventos);
 
     } catch (error: any) {
         return Promise.reject(error.response);

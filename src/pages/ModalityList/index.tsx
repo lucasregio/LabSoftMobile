@@ -19,7 +19,6 @@ export interface ModalitiesListProps{
 const ModalitiesList: React.FC<any> = ({...props}) =>{
   const [chanpions, setChanpions] = useState<ModalityCardProps[]>();
   const navigation = useNavigation<ModalityListNavigation>()
-  console.log("Teste43 ",props);
   const {params: {idEvento} } = props.route;
   const { setTitle ,setShowHeader } = useHeader();
 
@@ -29,7 +28,6 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
 
     const fetchData = async() => {
       
-      console.log("teste 63: ", idEvento);
       let data = await getChampionsByEvent(idEvento);
       //let dataJogos =  
       if (isMounted) setChanpions(data);
@@ -43,36 +41,6 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
     setTitle('Modalidades')
   })
 
-  const modalities: ModalityCardProps[] = [
-    {
-      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
-      title: 'Futebol Masculino',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '12 de Outubro'
-    },
-    {
-      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
-      title: 'Futebol Feminino',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '13 de Outubro'
-    },
-    {
-      icon: 'https://img.ibxk.com.br/2019/07/26/26171514413327.jpg',
-      title: 'League of Legends',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '17 de Outubro'
-    },
-    {
-      icon: 'https://s2.glbimg.com/yCJBIZkVQF69YBZ3sceVu39GS9w=/463x0:1619x1141/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/s/x/qUnJOGTgADPKf1O01v7A/fifa-22-logomarca.png',
-      title: 'FIFA 22',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '12 de Novembro'
-    },
-  ]
 
   const handleOnPress = () => {
     navigation.navigate('ModalityDetail', {})
@@ -102,7 +70,6 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
     </View>
     <FlatList
       style={styles.cardsListContainer}
-      //data={modalities}
       data = {chanpions}
       renderItem={({item: partner})=>{
         
