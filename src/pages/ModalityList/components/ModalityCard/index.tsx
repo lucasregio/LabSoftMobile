@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import { View, Text, Image } from "react-native"
 import colors from "../../../../styles/colors"
 import { styles } from "./styles"
@@ -31,8 +31,20 @@ export const ModalityCard: React.FC<ModalityCardProps> = ({
   nextGame,
   onPress
 }) => {
+  const [messagem, setMessagem] = useState<string>();
 
-
+  function getMessage(nextGame: any,nextDate: any){
+    let message = '';
+    if(nextGame != 0){
+      if(nextGame == 1){
+        message = `Próximo jogo: ${nextDate}`;
+      }
+      if(nextGame == 2){
+        message = `Último jogo: ${nextDate}`;
+      }
+    }
+    return message
+  };
 
   return <TouchableOpacity onPress={onPress} >
     <View style={styles.card}>
@@ -46,9 +58,11 @@ export const ModalityCard: React.FC<ModalityCardProps> = ({
       <View style={styles.line}/>
       <View style={styles.nextGame}>
         <Image style={styles.iconTeam} resizeMode='contain' source={{uri: iconTeam1}}  />
-        <Text style={{fontWeight:"bold"}}>VS</Text>
+        <Text style={{fontWeight:"bold"}}>{nextGame == 0?'':'VS'}</Text>
         <Image style={styles.iconTeam} resizeMode='contain' source={{uri: iconTeam2}}  />
-        <Text style={styles.nextDate}> Próximo jogo: {nextDate} </Text>
+        <Text style={styles.nextDate}>
+          {getMessage(nextGame,nextDate)}
+        </Text>
       </View>
     </View>
   </TouchableOpacity>

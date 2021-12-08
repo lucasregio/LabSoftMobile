@@ -1,6 +1,6 @@
 import api from "./api";
 import {ModalityCardProps} from  "../pages/ModalityList/components/ModalityCard"
-import {getAllJogosEmAndamento,getAllJogos, ordenarJogosPorData} from "./modalityDetails"
+import {getAllJogos, ordenarJogosPorData} from "./modalityDetails"
 import Jogo from "../services/interfaces/Jogo"
 
 
@@ -39,11 +39,6 @@ export function convertDate(jogo: Jogo): Date{
     return dateTest;
 }
 
-async function getJogos(idCampeonato:string){
-    //return await getAllJogosEmAndamento(idCampeonato);
-    return await getGames(idCampeonato);
-}
-
 async function getGames(idCampeonato:string){
     let ultimoJogo: { nextGame: number, lastGame: Jogo};
     let sysdate = new Date();
@@ -64,7 +59,6 @@ async function getGames(idCampeonato:string){
             lastGame: jogos[0]
         }
     }else{
-        console.log(`data do jogo: ${convertDate(jogos[0])} data systema: ${sysdate}`)
         if(convertDate(jogos[0]) >= sysdate){
             ultimoJogo = {
                 nextGame: 1,
@@ -111,11 +105,8 @@ export async function getChampionsByEvent(idEvent:string): Promise<ModalityCardP
             }
             array = []
         });
-        console.log(`Evento: ${idEvent} total de jogos : ${array.length}`);
-        console.log("teste11: ", await getJogos("51dbfd99-fee7-47e5-8b67-21a585b28896"))
         await Promise.all( array.map( async (campeonato: any)=>{
             let proximoJogo = await getGames(campeonato.idCampeonato);
-            console.log(`campeonato: ${campeonato.idCampeonato} jogo-3: `, proximoJogo);
             if(proximoJogo.nextGame !== 0){
                 campeonato.iconTeam1 = proximoJogo.lastGame.time1.logo;
                 campeonato.iconTeam2 = proximoJogo.lastGame.time2.logo;

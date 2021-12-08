@@ -23,13 +23,11 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
   const { setTitle ,setShowHeader } = useHeader();
 
   useEffect(() => {
-    //getChampions();
     let isMounted = true;
 
     const fetchData = async() => {
       
       let data = await getChampionsByEvent(idEvento);
-      //let dataJogos =  
       if (isMounted) setChanpions(data);
     }
     fetchData();
@@ -78,7 +76,8 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
           title,
           iconTeam1,
           iconTeam2,
-          nextDate
+          nextDate,
+          nextGame,
         } = partner
         
         return <ModalityCard 
@@ -87,6 +86,7 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
           iconTeam2={iconTeam2}
           title={title}
           nextDate={nextDate}
+          nextGame={nextGame}
           onPress={handleOnPress}
           />
       }}
