@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Athletic } from './../components/AthleticSelectButton/index';
 import api from './api';
+import Atletica from './interfaces/Atletica';
 
 export async function getAthletics(registerToken?:string): Promise<Athletic[]> {
   let array : Athletic[] = [];
@@ -30,4 +31,15 @@ export async function getAthletics(registerToken?:string): Promise<Athletic[]> {
       
     });
     return result;
+}
+
+export async function get(idAtletica: string) {
+  let atletica: Atletica;
+  try {
+    atletica = (await api.get(`atleticas/${idAtletica}`)).data;
+  } catch(error) {
+    return Promise.reject(error);
+  }
+
+  return atletica;
 }

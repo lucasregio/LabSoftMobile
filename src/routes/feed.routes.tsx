@@ -12,7 +12,9 @@ const FeedStack = createStackNavigator<FeedStackParamList>();
 
 export type FeedStackParamList = {
     Feed: undefined;
-    AthleticProfile: undefined;
+    AthleticProfile: {
+        id: string
+    };
     PostDetails: {
         id: string
     }

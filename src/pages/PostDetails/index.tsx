@@ -29,7 +29,7 @@ const PostDetails: React.FC = () => {
                     <Image style={styles.iconAthletic} source={validateImageLink(post?.imagem_autor)} />
                     <View style={styles.textIconAthletic}>
                         <Text>{post?.nome_autor}</Text>
-                        <Text>{post?.created_at}</Text>
+                        <Text>{post?.data_evento}</Text>
                     </View>
                 </View>
                 <View style={styles.contentPost}>

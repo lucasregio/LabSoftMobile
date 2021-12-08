@@ -1,92 +1,60 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Image, StyleSheet, Text, FlatList } from 'react-native';
 import Constants from 'expo-constants';
 
 import colors from '../../styles/colors';
 import NewsCard from '../../components/NewsCard';
+import { FeedStackParamList } from '../../routes/feed.routes';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+
+import * as post from '../../services/post';
+import * as athletic from '../../services/athletic';
+import Atletica from '../../services/interfaces/Atletica';
+import { validateImageLink } from '../../validations';
 
 const AthleticPerfil: React.FC = () => {
 
-  const feedNoticias = [
-    {
-        id: '1',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '2',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '3',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '4',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '5',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '6',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '7',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '8',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '9',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },{
-        id: '10',
-        image: 'https://pbs.twimg.com/media/DHmlqG5XkAA3tYY.jpg',
-        atleticaImage: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-        atleticaName: 'Tubarões',
-        titlePost: 'Amigos se encontram no bar, que dia louco',
-    },
-]
+  const route = useRoute<RouteProp<FeedStackParamList, 'AthleticProfile'>>();
+
+  const [postagens, setPostagens] = useState<post.Postagem[]>();
+  const [atletica, setAtletica] = useState<Atletica>();
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async () => {
+
+      let dataPost = await post.getAllPostagensAtletica(route.params.id);
+      let dataAtletica = await athletic.get(route.params.id);
+      console.log(dataAtletica);
+      
+      if (isMounted) {
+        setPostagens(dataPost);
+        setAtletica(dataAtletica);
+      }
+    }
+
+    fetchData();
+
+    return () => { isMounted = false };
+  }, [])
 
   return (
         <View style={styles.container}>
           <View style={styles.viewHeader}>
-            <Image style={styles.imageAtletica} source={{ uri: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV.jpg' }} />
+            <Image style={styles.imageAtletica} source={validateImageLink(atletica?.logo)} />
             <View style={styles.textHeaderView}>
-              <Text style={styles.textAtleticName}>Tubarões</Text>
+              <Text style={styles.textAtleticName}>{atletica?.nome}</Text>
               <View style={styles.viewContato}>
                 <Image style={styles.logoInstaContato} source={{ uri: 'https://i2.wp.com/www.multarte.com.br/wp-content/uploads/2019/03/logo-instagram-png-fundo-transparente13.png?fit=696%2C696&ssl=1' }} />
-                <Text style={styles.textAtleticContact}>@tubaroesuvv</Text>
+                <Text style={styles.textAtleticContact}>{''}</Text>
               </View>
             </View>
           </View>
           <View style={styles.listFeedAtletic}>
             <FlatList
-              data={feedNoticias}
-              renderItem={ ({item}) => <NewsCard id={item.id}/> }
+              data={postagens}
+              renderItem={ ({item}) => <NewsCard postagem={item}/> }
               keyExtractor={(item, index) => index.toString()}
             />
           </View>
