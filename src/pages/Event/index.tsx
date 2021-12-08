@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useHeader } from "../../contexts/header";
@@ -6,12 +6,18 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ModalityStackParamList } from "../../routes/modality.routes";
 import { styles } from "./styles"
 import EventCard,{EventCardProps} from "./components/EventCard";
+import {getChampions} from "../../services/championship";
+import {getAllEventos} from "../../services/event";
 import { useFocusEffect, useNavigation, useNavigationState } from "@react-navigation/core";
+import Evento from "../../services/interfaces/Evento";
 
 type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'Events'>;
 
 const Events: React.FC = () =>{
-  const handleOnPress = () => {
+
+  const [eventos, setEventos] = useState<Evento[]>();
+  const handleOnPress = async () => {
+   
     navigation.navigate('ModalitiesList')
   }
   const navigation = useNavigation<ModalityListNavigation>()
@@ -19,6 +25,22 @@ const Events: React.FC = () =>{
   useFocusEffect(()=>{
     setTitle('Eventos')
   });
+
+
+
+  useEffect(() => {
+    //getChampions();
+    let isMounted = true;
+    const fetchData = async() => {
+      
+      console.log("Rafael aki!!!");
+      let data = await getAllEventos()
+      
+      if (isMounted) setEventos(data);
+    }
+    fetchData();
+    return () => { isMounted = false };
+  }, [])
 
   const modalities: EventCardProps[] = [
     {
@@ -41,7 +63,8 @@ const Events: React.FC = () =>{
       title: 'Copa UVV',
       startDate: '01/01/2021'
     },
-]
+  ]
+
 
   return <View
     style={styles.container}
@@ -66,19 +89,22 @@ const Events: React.FC = () =>{
     </View>
     <FlatList
       style={styles.cardsListContainer}
-      data={modalities}
-      renderItem={({item: partner})=>{
+      data={eventos}
+      renderItem={({item})=>{
         
         const {
-          icon, 
-          title,
-          startDate
-        } = partner
+          id, 
+          nome,
+          //descricao,
+          imagem
+          //startDate
+        } = item
         
         return <EventCard 
-          icon={icon}
-          title={title}
-          startDate={startDate}
+          icon={imagem}
+          title={nome}
+          id ={id}
+          //startDate={startDate}
           onPress={handleOnPress}
           />
       }}

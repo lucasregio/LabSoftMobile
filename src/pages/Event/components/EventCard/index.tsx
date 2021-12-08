@@ -7,7 +7,9 @@ import { AntDesign } from '@expo/vector-icons';
 export interface EventCardProps {
   icon: string,
   title: string,
-  startDate: string,
+  id?: string,
+
+  startDate?: string,
   onPress?: () => void
 }
 
@@ -29,9 +31,9 @@ const EventCard: React.FC<EventCardProps> = ({
           <View style={styles.line}>
           </View>
           <View style={styles.eventStart}>
-            <Text>
+{/*             <Text>
               Começa {startDate}
-            </Text>
+            </Text> */}
           </View>
         </View>
         <AntDesign name="right" size={24} color="gray" style={styles.arrow}/>
