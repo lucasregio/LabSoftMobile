@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as auth from '../services/auth';
 import api from '../services/api';
-import jwt from 'jsonwebtoken'; 
+import jwt_decode from 'jwt-decode'; 
 interface AuthContextData {
     signed: boolean;
     user: any;
@@ -33,7 +33,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             if(!!storagedUser && !!storagedToken) {
                 api.defaults.headers.common.Authorization = `Bearer ${storagedToken}`;
 
-                const decoded: any = jwt.decode(storagedToken);
+                const decoded: any = jwt_decode(storagedToken);
                 const id = decoded.id || undefined;
 
                 setUser({...JSON.parse(storagedUser), id});
