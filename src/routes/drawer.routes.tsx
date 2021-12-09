@@ -7,11 +7,13 @@ import CustomDrawer from '../pages/CustomDrawer';
 import colors from '../styles/colors';
 import Partners from '../pages/Partners';
 import { useHeader } from '../contexts/header';
+import ChangeUser from '../pages/ChangeUser';
 
 const Drawer = createDrawerNavigator();
 
 export type DrawerParamList = {
     Home: undefined;
+    Perfil: undefined;
     Partners: undefined;
 };
 
@@ -22,12 +24,16 @@ const DrawerNavigator = () => {
     return (
         
         <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>}>
-                <Drawer.Screen
-                    name="Home"
-                    component={Tab}
-                    options={{...drawerItemOptions, ...drawerOptions, ...{title: title, headerShown: showHeader}}}
-                />
-            
+            <Drawer.Screen
+                name="Home"
+                component={Tab}
+                options={{...drawerItemOptions, ...drawerOptions, ...{title: title, headerShown: showHeader}}}
+            />
+            <Drawer.Screen 
+                name="Perfil"
+                component={ChangeUser}
+                options={drawerItemOptions}
+            />
             <Drawer.Screen 
                 name="Parceiros"
                 component={Partners}

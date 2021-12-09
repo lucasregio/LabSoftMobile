@@ -124,5 +124,21 @@ export const styles = StyleSheet.create({
         fontFamily: 'Nunito_400Regular',
         color: colors.primary,
         flex: 1
-    }
+    },
+
+    headerContainer:{
+        backgroundColor: colors.white,
+      },
+      header:{
+        paddingTop: 12,
+        paddingLeft: 15,
+        flexDirection: 'row',
+      },
+      headerText:{
+        marginLeft: 34,
+        color: colors.primary,
+        fontFamily: 'Nunito_400Regular',
+        fontWeight: 'bold',
+        fontSize: 16,
+      },
 });
