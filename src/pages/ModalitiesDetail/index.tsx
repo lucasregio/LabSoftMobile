@@ -3,33 +3,37 @@ import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIc
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { StatusBar } from "expo-status-bar"
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import { View, Text, Image, FlatList } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useHeader } from "../../contexts/header"
 import { ModalityStackParamList } from "../../routes/modality.routes"
+import Jogo from "../../services/interfaces/Jogo"
 import colors from "../../styles/colors"
 import { ChampionshipDetails } from "./components/ChampionshipDetails"
 import { GameDetails } from "./components/GameDetails"
 import { HistoryDetails } from "./components/HistoryDetails"
 import { ModalityDetailHeader } from "./components/ModalityDetailHeader"
+import {getAllJogos} from "../../services/modalityDetails"
 import { styles } from "./styles"
 
 type ModalityDetailNavigation = StackNavigationProp<ModalityStackParamList, 'ModalityDetail'>;
 
 export interface ModalityDetailProps {
-  
+  idCampeonato:string;
+  modalityImage: string;
+  modalityName: string;
 }
 
-export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
+export const ModalityDetail: React.FC<any> = ({...props}) => {
   const { setShowHeader } = useHeader()
-
+  const {idCampeonato,modalityImage, modalityName } = props.route.params;
   const [isRightSelected, setIsRightSelected] = useState(true)
   const [selectedState, setSelectedState] = useState<'left' | 'middle' | 'right'>('left');
 
-  const modalityImage = 'https://cdn-icons-png.flaticon.com/512/53/53283.png'
-  const modalityName = 'Futebol Masculino'
+  //const modalityImage = 'https://cdn-icons-png.flaticon.com/512/53/53283.png'
+  //const modalityName = 'Futebol Masculino'
 
   useFocusEffect(() => {
     setShowHeader(false)
@@ -40,6 +44,16 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
   const onClickArrow = () => {
     navigation.goBack()
   }
+
+  function PageSwitch(state: any){
+    if (state === 'left') {
+      return (<ChampionshipDetails idCampeonato={idCampeonato} />)
+    } else if (state === 'middle') {
+      return (<GameDetails/>)
+    } else {
+      return (<HistoryDetails/>)
+    }
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,15 +76,7 @@ export const ModalityDetail: React.FC<ModalityDetailProps> = ({}) => {
   )
 }
 
-function PageSwitch(state: any){
-    if (state === 'left') {
-      return (<ChampionshipDetails/>)
-    } else if (state === 'middle') {
-      return (<GameDetails/>)
-    } else {
-      return (<HistoryDetails/>)
-    }
-}
+
 
 // const GamesList = () => {
 
