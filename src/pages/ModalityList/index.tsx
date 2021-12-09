@@ -8,6 +8,7 @@ import { ModalityStackParamList } from "../../routes/modality.routes";
 import { ModalityCard, ModalityCardProps } from "./components/ModalityCard";
 import { useHeader } from "../../contexts/header";
 import {getChampionsByEvent} from "../../services/championshipByEvent"
+import {getAllJogos } from "../../services/modalityDetails"
 import { useFocusEffect } from "@react-navigation/native";
 
 type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'ModalitiesList'>;
@@ -40,8 +41,8 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
   })
 
 
-  const handleOnPress = () => {
-    navigation.navigate('ModalityDetail', {})
+   const handleOnPress = async (idCampeonato:any, modalityImage:any, modalityName:any) => {
+    navigation.navigate('ModalityDetail', {idCampeonato,modalityImage, modalityName})
   }
 
   return <View
@@ -78,6 +79,7 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
           iconTeam2,
           nextDate,
           nextGame,
+          idCampeonato
         } = partner
         
         return <ModalityCard 
@@ -87,7 +89,8 @@ const ModalitiesList: React.FC<any> = ({...props}) =>{
           title={title}
           nextDate={nextDate}
           nextGame={nextGame}
-          onPress={handleOnPress}
+          idCampeonato = {idCampeonato}
+          onPress={()=>{handleOnPress(idCampeonato,icon, title)} }
           />
       }}
     />
