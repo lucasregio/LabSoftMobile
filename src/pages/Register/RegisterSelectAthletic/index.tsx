@@ -53,7 +53,7 @@ const RegisterSelectAthletic: React.FC = () => {
     return (
         <View style={styles.container}>
             <AthleticList 
-                pageTitle={'Altere sua atlética'}
+                pageTitle={'Selecione sua atlética'}
                 selectedAthleticId={selected} 
                 onSelectItem={({id, name})=> onSelectAthletic(id, name)}
                 list = {listAthletic}
@@ -72,7 +72,8 @@ export default RegisterSelectAthletic;
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: colors.offwhiteblue
+        backgroundColor: colors.offwhiteblue,
+        paddingTop: 50
     },
     button: {
         backgroundColor: colors.primary,
