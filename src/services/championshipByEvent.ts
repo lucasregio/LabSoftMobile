@@ -111,7 +111,7 @@ export async function getChampionsByEvent(idEvent:string): Promise<ModalityCardP
                 campeonato.iconTeam1 = proximoJogo.lastGame.time1.logo;
                 campeonato.iconTeam2 = proximoJogo.lastGame.time2.logo;
                 campeonato.nextGame = proximoJogo.nextGame;
-                campeonato.nextDate = proximoJogo.lastGame.data_jogo +" "+ proximoJogo.lastGame.hora_jogo
+                campeonato.nextDate = proximoJogo.lastGame.data_jogo;
             }else{
                 campeonato.iconTeam1 = "-";
                 campeonato.iconTeam2 = "-";
