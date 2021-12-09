@@ -1,6 +1,5 @@
 import React from "react"
-import { View, Text, Image } from "react-native"
-import colors from "../../../../styles/colors"
+import { Image, Text, View } from "react-native"
 import DiscountLabel from "../DiscountLabel"
 import { styles } from "./styles"
 

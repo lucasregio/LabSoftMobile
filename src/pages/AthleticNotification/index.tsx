@@ -1,31 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Athletic } from '../../components/AthleticSelectButton';
-import colors from '../../styles/colors';
-import AthleticList from '../../components/ListAthletic';
+import { View, StyleSheet, Text, TouchableOpacity ,TextInput, FlatList} from 'react-native';
+import AthleticButton,{Athletic} from './AthleticButton';
 import { getAthletics } from '../../services/athletic';
 import { useFocusEffect } from '@react-navigation/core';
 import { useAuth } from '../../contexts/auth';
 import { changeAthletic, getUser} from '../../services/auth';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { styles } from "./styles"
+import { useHeader } from '../../contexts/header';
+
 
 const AthleticNotification: React.FC = () => {
+    const { setTitle, setShowHeader } = useHeader();
     const [selected, setSelected] = useState<string>()
     const [listaAtletica, setListaAtletica] = useState<Athletic[]>([]);
     const { user } = useAuth()
 
-    const handleSelectAthletic = async () => {
-        if(!!user && !!selected){
-            const response = await changeAthletic(user.id, selected)
-            console.log('response', response)
-            console.log('user', user.id)
-            setSelected(selected)
-        }
-    }
-    
-    useEffect(() => {
-        console.log('selected', selected)
-    }, [selected])
-    
+
+    useFocusEffect(()=>{
+        setShowHeader(true); 
+        setTitle('Atléticas')
+    });
     
     useEffect(() => {
         getUser(user.id).then(res => {
@@ -40,15 +35,12 @@ const AthleticNotification: React.FC = () => {
         useCallback(
             () => {
                 try{
-                
                 getUser(user.id).then(res => {
-                    console.log('res', res)
                     const {id_atletica: IdAthletic} = res.data as any
-                    console.log('id_atletica', IdAthletic)
                     setSelected(IdAthletic)
                 }) 
             }catch{
-                throw new Error("Não foi possível carregar as tléticas");
+                throw new Error("Não foi possível carregar as Atléticas");
             }
         },[])
     );
@@ -71,7 +63,7 @@ const AthleticNotification: React.FC = () => {
                     setListaAtletica(res);
                 })
             }catch{
-                throw new Error("Não foi possível carregar as tléticas");
+                throw new Error("Não foi possível carregar as atléticas");
             }
         },[selected])
     );
@@ -79,55 +71,42 @@ const AthleticNotification: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <AthleticList 
-                pageTitle={'Altere sua atlética'}
-                selectedAthleticId={selected} 
-                onSelectItem={({id})=> {
-                    console.log('id', id)
-                    setSelected(id)
-                }}
-                list = {listaAtletica} 
-                />
-            <View style={styles.viewStyleButton}>
-                <TouchableOpacity
-                    onPress={handleSelectAthletic}
-                    style={styles.button}
-                >
-                    <Text style={styles.buttonText}>Selecionar</Text>
-                </TouchableOpacity>
+            <View style={styles.headerContainer}>
+                <View style={styles.searchBar}>
+                    <FontAwesome5
+                    style={styles.iconStyleSearchBar}
+                    name="search"
+                    color="#483BC4"
+                    size={25}
+                    />
+                    <TextInput style={styles.inputText} placeholder="Pesquise uma Atlética" />
+                    <TouchableOpacity>
+                    <FontAwesome5
+                    style={styles.iconStyleSearchBar}
+                    name="sliders-h"
+                    size={25}
+                    
+                    />
+                    </TouchableOpacity>
+                </View>
             </View>
+            <FlatList
+                data={listaAtletica}
+                showsVerticalScrollIndicator={false}
+                numColumns={4}
+                renderItem={ ({item: athletic}) => 
+                    <AthleticButton 
+                        // {...console.log("athletic : ", athletic.id)}
+                        // {...console.log("athletic selecionada : ", selectedAthleticId)}
+                        athletic={athletic}
+                    /> 
+                }
+                key={'id'}
+            />
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-    },
-    button: {
-        backgroundColor: colors.primary,
-        height: 45,
-        width: 156,
-        flexDirection: 'row',
-        alignContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-        borderRadius: 31,
-    },
-    buttonText: {
-        flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: 16,
-        color: '#fff',
-        fontFamily: 'Nunito_400Regular',
-        fontWeight: 'bold',
-        alignSelf: 'center'
-    },
-    viewStyleButton:{
-        alignItems: 'center',
-        marginBottom: 20
-    }
-})
+
 
 export default AthleticNotification;

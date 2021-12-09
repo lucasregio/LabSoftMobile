@@ -1,4 +1,4 @@
-export default interface Parceiro {
+export default interface   Parceiro  {
     id: string,
     logo: string,
     titulo: string,
