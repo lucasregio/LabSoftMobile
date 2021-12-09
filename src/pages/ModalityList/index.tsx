@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect,useState} from "react"
 import { Text, TextInput, TouchableOpacity, View, FlatList } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { styles } from "./styles"
@@ -7,51 +7,38 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ModalityStackParamList } from "../../routes/modality.routes";
 import { ModalityCard, ModalityCardProps } from "./components/ModalityCard";
 import { useHeader } from "../../contexts/header";
+import {getChampionsByEvent} from "../../services/championshipByEvent"
 import { useFocusEffect } from "@react-navigation/native";
 
 type ModalityListNavigation = StackNavigationProp<ModalityStackParamList, 'ModalitiesList'>;
 
+export interface ModalitiesListProps{
+  idEvento?: String
+}
 
-const ModalitiesList: React.FC = () =>{
+const ModalitiesList: React.FC<any> = ({...props}) =>{
+  const [chanpions, setChanpions] = useState<ModalityCardProps[]>();
   const navigation = useNavigation<ModalityListNavigation>()
-  
-  const { setTitle ,setShowHeader } = useHeader()
+  const {params: {idEvento} } = props.route;
+  const { setTitle ,setShowHeader } = useHeader();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async() => {
+      
+      let data = await getChampionsByEvent(idEvento);
+      if (isMounted) setChanpions(data);
+    }
+    fetchData();
+    return () => { isMounted = false };
+  }, [])
 
   useFocusEffect(() => {
     setShowHeader(true),
     setTitle('Modalidades')
   })
 
-  const modalities: ModalityCardProps[] = [
-    {
-      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
-      title: 'Futebol Masculino',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '12 de Outubro'
-    },
-    {
-      icon: 'https://cdn-icons-png.flaticon.com/512/53/53283.png',
-      title: 'Futebol Feminino',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '13 de Outubro'
-    },
-    {
-      icon: 'https://img.ibxk.com.br/2019/07/26/26171514413327.jpg',
-      title: 'League of Legends',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '17 de Outubro'
-    },
-    {
-      icon: 'https://s2.glbimg.com/yCJBIZkVQF69YBZ3sceVu39GS9w=/463x0:1619x1141/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/s/x/qUnJOGTgADPKf1O01v7A/fifa-22-logomarca.png',
-      title: 'FIFA 22',
-      iconTeam1: 'https://pbs.twimg.com/profile_images/867023581418573824/sRkrAKHV_400x400.jpg',
-      iconTeam2: 'http://178.238.233.159:5555/public/images/atleticas/967cd513-0d95-486a-814b-cfc33c9272ae.jpg',
-      nextDate: '12 de Novembro'
-    },
-  ]
 
   const handleOnPress = () => {
     navigation.navigate('ModalityDetail', {})
@@ -81,7 +68,7 @@ const ModalitiesList: React.FC = () =>{
     </View>
     <FlatList
       style={styles.cardsListContainer}
-      data={modalities}
+      data = {chanpions}
       renderItem={({item: partner})=>{
         
         const {
@@ -89,7 +76,8 @@ const ModalitiesList: React.FC = () =>{
           title,
           iconTeam1,
           iconTeam2,
-          nextDate
+          nextDate,
+          nextGame,
         } = partner
         
         return <ModalityCard 
@@ -98,6 +86,7 @@ const ModalitiesList: React.FC = () =>{
           iconTeam2={iconTeam2}
           title={title}
           nextDate={nextDate}
+          nextGame={nextGame}
           onPress={handleOnPress}
           />
       }}

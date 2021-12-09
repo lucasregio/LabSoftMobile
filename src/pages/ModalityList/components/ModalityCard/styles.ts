@@ -49,6 +49,9 @@ export const styles = StyleSheet.create({
     paddingLeft: 16
   },
   nextDate:{
-    marginLeft:'75%'
+    marginLeft:5,
+    fontFamily: 'Nunito_400Regular',
+    fontWeight: 'bold',
+    color: '#888888'
   }
 })
