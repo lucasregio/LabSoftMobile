@@ -79,7 +79,7 @@ const AthleticNotification: React.FC = () => {
                     color="#483BC4"
                     size={25}
                     />
-                    <TextInput style={styles.inputText} placeholder="Pesquise uma modalidade" />
+                    <TextInput style={styles.inputText} placeholder="Pesquise uma Atlética" />
                     <TouchableOpacity>
                     <FontAwesome5
                     style={styles.iconStyleSearchBar}
